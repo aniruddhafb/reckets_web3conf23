@@ -1,118 +1,117 @@
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import Link from 'next/link'
 
 export default function Home() {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      {/* hero section */}
+      <div className="banner bg-mainColor">
+        <div className="shape">
+          <img className="shape1" src="../banner-circle-2.png" alt="image" />
+          <img className="shape2" src="../dot-dot.png" alt="image" />
+        </div>
+        <div className="container-fluid">
+          <div className="row align-items-center">
+            <div className="col-lg-7">
+              <div className="banner-text-area-2 banner-text-area-3">
+                <h1>Resell your online tickets very easily!!</h1>
+                <p>A platform where you can resell your flight, boat, movies tickets very easily. Buy tickets on reckets in the form of NFTs backed by the blockchain security. </p>
+                <div className="banner-button-group">
+                  <Link className="default-button default-button-2" href="/BuyTicket"><span>Buy Tickets</span></Link>
+                  <Link className="default-button default-button-2 last-btn" href="/SellTicket"><span>Resell Tickets</span></Link>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-5">
+              <div className="banner-img-3">
+                <img className='h-[500px] w-[90%]' src="../heroo.jpg" alt="shape" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <img className="bottom-shape" src="../banner-3-bottom-shape.png" alt="shape" />
+      </div>
+
+      {/* brands  */}
+      <div className="partner pt-70">
+        <div className="container">
+          <div className="partner-slider-area owl-carousel">
+            <img src="assets/images/brand/br1.png" alt="image" />
+          </div>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      {/* services  */}
+      <div className="service service-3 ptb-100 bg-f9faff">
+        <div className="container">
+          <div className="default-section-title default-section-title-middle">
+            <h6>OUR SERVICES</h6>
+            <h3>All Services on reckets</h3>
+          </div>
+          <div className="section-content">
+            <div className="row justify-content-center g-0">
+              <div className="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div className="service-card-3">
+                  <div className="service-card-icon-area">
+                    <i className="flaticon-content"></i>
+                  </div>
+                  <h4><a href="service-details.html">Buy Flight Tickets</a></h4>
+                  <p>Buy fresh new flight tickets in the form of NFTs on polygon. Comes with priority reselling, blockchain security and many more things.. </p>
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div className="service-card-3">
+                  <div className="service-card-icon-area">
+                    <i className="flaticon-content"></i>
+                  </div>
+                  <h4><a href="service-details.html">Resell Flight Tickets</a></h4>
+                  <p>Resell your purchased flight tickets from reckets. Third party reselling will be enabled soon.. </p>
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div className="service-card-3">
+                  <div className="service-card-icon-area">
+                    <i className="flaticon-content"></i>
+                  </div>
+                  <h4><a href="service-details.html">Resell Boat Tickets (Coming Soon)</a></h4>
+                  <p>Resell your purchased boat tickets from reckets. Third party reselling will be enabled soon.. </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      {/* tickets  */}
+      <div className="blog pb-100">
+        <div className="container">
+          <div className="default-section-title default-section-title-middle mt-12">
+            <h6>TICKETS</h6>
+            <h3>Available Tickets</h3>
+          </div>
+          <div className="section-content">
+            <div className="row justify-content-center">
+              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+                <div className="blog-card blog-card-2">
+                  <div className="blog-img">
+                    <a href="blog-details.html"><img src="assets/images/blog/b1.jpg" alt="image" /></a>
+                  </div>
+                  <div className="blog-text-area">
+                    <div className="blog-date">
+                      <ul>
+                        <li><i className="fas fa-user"></i> By Admin</li>
+                        <li><i className="far fa-comments"></i> No Comments</li>
+                        <li><i className="far fa-calendar-alt"></i> 01 July 2023</li>
+                      </ul>
+                    </div>
+                    <h4><a href="blog-details.html">Tikt 1</a></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
+    </>
   )
 }

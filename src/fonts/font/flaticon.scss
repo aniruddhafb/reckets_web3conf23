@@ -1,0 +1,89 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?8329fcb92a23fe85d31a47db4c583ce0") format("truetype"),
+url("./flaticon.woff?8329fcb92a23fe85d31a47db4c583ce0") format("woff"),
+url("./flaticon.woff2?8329fcb92a23fe85d31a47db4c583ce0") format("woff2"),
+url("./flaticon.eot?8329fcb92a23fe85d31a47db4c583ce0#iefix") format("embedded-opentype"),
+url("./flaticon.svg?8329fcb92a23fe85d31a47db4c583ce0#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "content": "\f101",
+    "pie-chart": "\f102",
+    "customer": "\f103",
+    "idea": "\f104",
+    "update": "\f105",
+    "avatar": "\f106",
+    "lamp": "\f107",
+    "settings": "\f108",
+    "play": "\f109",
+    "whatsapp": "\f10a",
+    "snapchat": "\f10b",
+    "twitter": "\f10c",
+    "security": "\f10d",
+    "bell": "\f10e",
+    "driver-license-1": "\f10f",
+    "cloud-computing": "\f110",
+);
+
+.flaticon-content:before {
+    content: map-get($flaticon-map, "content");
+}
+.flaticon-pie-chart:before {
+    content: map-get($flaticon-map, "pie-chart");
+}
+.flaticon-customer:before {
+    content: map-get($flaticon-map, "customer");
+}
+.flaticon-idea:before {
+    content: map-get($flaticon-map, "idea");
+}
+.flaticon-update:before {
+    content: map-get($flaticon-map, "update");
+}
+.flaticon-avatar:before {
+    content: map-get($flaticon-map, "avatar");
+}
+.flaticon-lamp:before {
+    content: map-get($flaticon-map, "lamp");
+}
+.flaticon-settings:before {
+    content: map-get($flaticon-map, "settings");
+}
+.flaticon-play:before {
+    content: map-get($flaticon-map, "play");
+}
+.flaticon-whatsapp:before {
+    content: map-get($flaticon-map, "whatsapp");
+}
+.flaticon-snapchat:before {
+    content: map-get($flaticon-map, "snapchat");
+}
+.flaticon-twitter:before {
+    content: map-get($flaticon-map, "twitter");
+}
+.flaticon-security:before {
+    content: map-get($flaticon-map, "security");
+}
+.flaticon-bell:before {
+    content: map-get($flaticon-map, "bell");
+}
+.flaticon-driver-license-1:before {
+    content: map-get($flaticon-map, "driver-license-1");
+}
+.flaticon-cloud-computing:before {
+    content: map-get($flaticon-map, "cloud-computing");
+}
