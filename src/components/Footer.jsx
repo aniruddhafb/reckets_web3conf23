@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                         <div className="footer-logo-area">
-                            <a href="index.html"><img src="assets/images/logo.png" alt="image" /></a>
+                            <a href="index.html"><img src="../bgclean.png" alt="image" /></a>
                             <p>Resell your online tickets for best prices!! Convert your tickets to NFTs</p>
                             <div className="footer-social-icons">
                                 <ul>

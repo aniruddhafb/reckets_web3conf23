@@ -35,8 +35,11 @@ export default function Home() {
       {/* brands  */}
       <div className="partner pt-70">
         <div className="container">
-          <div className="partner-slider-area owl-carousel">
-            <img src="assets/images/brand/br1.png" alt="image" />
+          <div className="partner-slider-area owl-carousel flex">
+            <img src="../kasa.png" className='h-[55px] mr-14 mt-2' alt="image" />
+            <img src="../indgio.png" className='h-[70px] mr-14' alt="image" />
+            <img src="../airasia.png" className='h-[45px] mr-14 mt-2' alt="image" />
+            <img src="../jet.png" className='h-[80px] mr-14 mb-2' alt="image" />
           </div>
         </div>
       </div>
@@ -55,7 +58,7 @@ export default function Home() {
                   <div className="service-card-icon-area">
                     <i className="flaticon-content"></i>
                   </div>
-                  <h4><a href="service-details.html">Buy Flight Tickets</a></h4>
+                  <h4><a href="#">Buy Flight Tickets</a></h4>
                   <p>Buy fresh new flight tickets in the form of NFTs on polygon. Comes with priority reselling, blockchain security and many more things.. </p>
                 </div>
               </div>
@@ -64,7 +67,7 @@ export default function Home() {
                   <div className="service-card-icon-area">
                     <i className="flaticon-content"></i>
                   </div>
-                  <h4><a href="service-details.html">Resell Flight Tickets</a></h4>
+                  <h4><a href="#">Resell Flight Tickets</a></h4>
                   <p>Resell your purchased flight tickets from reckets. Third party reselling will be enabled soon.. </p>
                 </div>
               </div>
@@ -73,7 +76,7 @@ export default function Home() {
                   <div className="service-card-icon-area">
                     <i className="flaticon-content"></i>
                   </div>
-                  <h4><a href="service-details.html">Resell Boat Tickets (Coming Soon)</a></h4>
+                  <h4><a href="#">Resell Boat Tickets (Coming Soon)</a></h4>
                   <p>Resell your purchased boat tickets from reckets. Third party reselling will be enabled soon.. </p>
                 </div>
               </div>
