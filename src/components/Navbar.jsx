@@ -3,7 +3,7 @@ import React from 'react'
 const Navbar = () => {
     return (
 
-        <nav className="bg-white w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <nav className="bg-white w-full z-20 top-0 left-0 border-b border-gray-200">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
                 <a href="/" className="flex items-center">
                     <img src="../smalllogo.png" className="h-[60px] mt-[12px]" alt="Flowbite Logo" />
@@ -17,7 +17,7 @@ const Navbar = () => {
                         </svg>
                     </button>
                 </div>
-                <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                     <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
                         <li>
                             <a href="#" className="block py-2 pl-3 pr-4 text-gray-500 bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">About</a>

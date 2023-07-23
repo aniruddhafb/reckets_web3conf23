@@ -35,7 +35,7 @@ export default function Home() {
       {/* brands  */}
       <div className="partner pt-70">
         <div className="container">
-          <div className="partner-slider-area owl-carousel flex">
+          <div className="partner-slider-area owl-carousel flex flex-wrap">
             <img src="../kasa.png" className='h-[55px] mr-14 mt-2' alt="image" />
             <img src="../indgio.png" className='h-[70px] mr-14' alt="image" />
             <img src="../airasia.png" className='h-[45px] mr-14 mt-2' alt="image" />
@@ -44,8 +44,39 @@ export default function Home() {
         </div>
       </div>
 
+      {/* tickets  */}
+      <div className="blog pb-100 bg-f9faff pt-16">
+        <div className="container">
+          <div className="default-section-title default-section-title-middle">
+            <h6>TICKETS</h6>
+            <h3>Available Tickets</h3>
+          </div>
+          <div className="section-content">
+            <div className="row justify-content-center">
+              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+                <div className="blog-card blog-card-2">
+                  <div className="blog-img">
+                    <a href="blog-details.html"><img src="assets/images/blog/b1.jpg" alt="image" /></a>
+                  </div>
+                  <div className="blog-text-area">
+                    <div className="blog-date">
+                      <ul>
+                        <li><i className="fas fa-user"></i> By Admin</li>
+                        <li><i className="far fa-comments"></i> No Comments</li>
+                        <li><i className="far fa-calendar-alt"></i> 01 July 2023</li>
+                      </ul>
+                    </div>
+                    <h4><a href="blog-details.html">Tikt 1</a></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* services  */}
-      <div className="service service-3 ptb-100 bg-f9faff">
+      <div className="service service-3 ptb-100">
         <div className="container">
           <div className="default-section-title default-section-title-middle">
             <h6>OUR SERVICES</h6>
@@ -78,37 +109,6 @@ export default function Home() {
                   </div>
                   <h4><a href="#">Resell Boat Tickets (Coming Soon)</a></h4>
                   <p>Resell your purchased boat tickets from reckets. Third party reselling will be enabled soon.. </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* tickets  */}
-      <div className="blog pb-100">
-        <div className="container">
-          <div className="default-section-title default-section-title-middle mt-12">
-            <h6>TICKETS</h6>
-            <h3>Available Tickets</h3>
-          </div>
-          <div className="section-content">
-            <div className="row justify-content-center">
-              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
-                <div className="blog-card blog-card-2">
-                  <div className="blog-img">
-                    <a href="blog-details.html"><img src="assets/images/blog/b1.jpg" alt="image" /></a>
-                  </div>
-                  <div className="blog-text-area">
-                    <div className="blog-date">
-                      <ul>
-                        <li><i className="fas fa-user"></i> By Admin</li>
-                        <li><i className="far fa-comments"></i> No Comments</li>
-                        <li><i className="far fa-calendar-alt"></i> 01 July 2023</li>
-                      </ul>
-                    </div>
-                    <h4><a href="blog-details.html">Tikt 1</a></h4>
-                  </div>
                 </div>
               </div>
             </div>

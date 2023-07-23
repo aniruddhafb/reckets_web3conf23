@@ -24,6 +24,22 @@ body {
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--transparentColor);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mainColor);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondColor);
+}
+
 h1,
 h2,
 h3,
