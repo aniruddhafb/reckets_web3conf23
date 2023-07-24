@@ -24,6 +24,14 @@ body {
   box-sizing: border-box;
 }
 
+body Link {
+  text-decoration: none;
+}
+
+body a {
+  text-decoration: none;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

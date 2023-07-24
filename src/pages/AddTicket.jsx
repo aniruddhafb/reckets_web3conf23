@@ -1,6 +1,7 @@
 import React from "react";
 import { GoChevronDown } from "react-icons/go";
 import { useState } from "react";
+import Head from "next/head";
 const AddTicket = () => {
   const [data, set_data] = useState({
     location: "",
