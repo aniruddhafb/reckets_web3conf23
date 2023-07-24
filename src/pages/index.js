@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MdDirectionsBoat, MdFlightTakeoff } from "react-icons/md"
@@ -5,6 +6,17 @@ import { MdDirectionsBoat, MdFlightTakeoff } from "react-icons/md"
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>Reckets - Resell your online tickets</title>
+        <meta
+          name="description"
+          content="A platform to resell your online tickets"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.png" />
+      </Head>
+
+
       {/* hero section */}
       <div className="banner bg-mainColor pt-[200px]">
         <div className="shape">
@@ -95,15 +107,6 @@ export default function Home() {
           </div>
           <div className="section-content">
             <div className="row justify-content-center g-0">
-              {/* <div className="col-lg-4 col-md-6 col-sm-6 col-12">
-                <div className="service-card-3">
-                  <div className="service-card-icon-area">
-                    <i className="flaticon-content"></i>
-                  </div>
-                  <h4><a href="#">Buy Flight Tickets</a></h4>
-                  <p>Buy fresh new flight tickets in the form of NFTs on polygon. Comes with priority reselling, blockchain security and many more things.. </p>
-                </div>
-              </div> */}
               <div className="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div className="service-card-3">
                   <div className="service-card-icon-area">

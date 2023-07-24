@@ -1,9 +1,20 @@
+import Head from 'next/head'
 import React from 'react'
 import { GoChevronDown } from "react-icons/go"
 
 const AddTicket = () => {
     return (
         <>
+            <Head>
+                <title>Mint your online tickets</title>
+                <meta
+                    name="description"
+                    content="A platform to resell your online tickets"
+                />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.png" />
+            </Head>
+
             <div className="uni-banner pt-[200px]">
                 <div className="container">
                     <div className="uni-banner-text-area">

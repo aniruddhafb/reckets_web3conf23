@@ -3,10 +3,21 @@ import React from 'react'
 import shravanImage from "../../public/shravan.jpeg";
 import aniruddhaImage from "../../public/aniruddha.jpg";
 import Image from 'next/image';
+import Head from 'next/head';
 
 const About = () => {
     return (
         <div className="about pb-100 pt-[200px]">
+            <Head>
+                <title>About - Reckets</title>
+                <meta
+                    name="description"
+                    content="A platform to resell your online tickets"
+                />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.png" />
+            </Head>
+
             <div className="container">
                 <div className="row align-items-center">
                     <div className="col-lg-6">

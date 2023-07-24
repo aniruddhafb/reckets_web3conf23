@@ -1,8 +1,19 @@
+import Head from 'next/head'
 import React from 'react'
 
 const Ticket = () => {
     return (
         <div className="blog-details pb-100 pt-[200px]">
+            <Head>
+                <title>Flight Ticket</title>
+                <meta
+                    name="description"
+                    content="A platform to resell your online tickets"
+                />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.png" />
+            </Head>
+
             <div className="container">
                 <div className="row">
                     <div className="col-lg-8 col-md-12 col-sm-12 col-12">
