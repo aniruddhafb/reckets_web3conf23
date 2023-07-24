@@ -80,7 +80,7 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
                     <div className="section-content">
                         <div className="row justify-content-center">
                             {/* loop tickets here  */}
-                            {/* {nfts?.map((e, index) => {
+                            {nfts?.map((e, index) => {
                                 const nft_info = JSON.parse(e.metadata);
                                 return (
                                     <div className="col-lg-4 col-md-6 col-sm-12 col-12">
@@ -108,7 +108,7 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
                                         </div>
                                     </div>
                                 );
-                            })} */}
+                            })}
                         </div>
                     </div>
                 </div>
