@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { MdDirectionsBoat, MdFlightTakeoff } from "react-icons/md"
 
 export default function Home() {
   return (
@@ -106,7 +107,7 @@ export default function Home() {
               <div className="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div className="service-card-3">
                   <div className="service-card-icon-area">
-                    <i className="flaticon-content"></i>
+                    <MdFlightTakeoff style={{ rotate: "310deg" }} />
                   </div>
                   <h4><a href="#">Resell Flight Tickets</a></h4>
                   <p>Resell your purchased flight tickets with very minimal comission on sales. </p>
@@ -115,7 +116,7 @@ export default function Home() {
               <div className="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div className="service-card-3">
                   <div className="service-card-icon-area">
-                    <i className="flaticon-content"></i>
+                    <MdDirectionsBoat style={{ rotate: "310deg" }} />
                   </div>
                   <h4><a href="#">Resell Boat Tickets (Coming Soon)</a></h4>
                   <p>Resell your purchased boat tickets on reckets and get best deals </p>
