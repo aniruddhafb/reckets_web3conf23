@@ -24,6 +24,7 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
                 address,
                 chain,
             });
+            console.log(response.jsonResponse.result)
             set_nfts(response.jsonResponse.result);
             console.log({ nfts: nfts })
 
@@ -33,6 +34,7 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
     };
 
     useEffect(() => {
+        if (!slug) return;
         getProfileNFTs_moralis();
     }, [slug, signer_address])
 
