@@ -1,18 +1,17 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import defaultAvatar from "../../../public/profile.png"
-import Head from 'next/head'
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import defaultAvatar from "../../../public/profile.png";
+import Head from "next/head";
 import Moralis from "moralis";
 import { EvmChain } from "@moralisweb3/common-evm-utils";
 import { useRouter } from "next/router";
+import axios from "axios";
 
-const userProfile = ({ signer_address, initiateMoralis }) => {
-
+const UserProfile = ({ signer_address, initiateMoralis }) => {
     const router = useRouter();
     const { slug } = router.query;
     const [nfts, set_nfts] = useState([]);
-
 
     // getting nfts direct via on chain using moralis
     const getProfileNFTs_moralis = async () => {
@@ -24,10 +23,19 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
                 address,
                 chain,
             });
-            console.log(response.jsonResponse.result)
             set_nfts(response.jsonResponse.result);
-            console.log({ nfts: nfts })
-
+            let my_nfts = [];
+            for (const a of response.jsonResponse.result) {
+                let obj = {};
+                const res = await axios.get(a.token_uri);
+                obj = {
+                    ...res.data,
+                    token_address: a.token_address,
+                    token_id: a.token_id,
+                };
+                my_nfts.push(obj);
+            }
+            console.log(my_nfts);
         } catch (error) {
             console.log(error);
         }
@@ -36,7 +44,7 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
     useEffect(() => {
         if (!slug) return;
         getProfileNFTs_moralis();
-    }, [slug, signer_address])
+    }, [slug, signer_address]);
 
     return (
         <>
@@ -53,19 +61,24 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
             <div className="uni-banner pt-[200px]">
                 <div className="container">
                     <div className="uni-banner-text-area flex justify-center flex-col align-middle">
-                        <ul className='flex justify-center'>
-                            <Image src={defaultAvatar} height={100} width={100} alt="avatar"
+                        <ul className="flex justify-center">
+                            <Image
+                                src={defaultAvatar}
+                                height={100}
+                                width={100}
+                                alt="avatar"
                                 style={{
                                     borderRadius: "50%",
                                     width: "80px",
                                     height: "70px",
-                                    marginBottom: "10px"
-                                }} />
+                                    marginBottom: "10px",
+                                }}
+                            />
                         </ul>
                         <ul>
-                            <li>{signer_address.slice(0, 5) +
-                                "..." +
-                                signer_address.slice(38)}</li>
+                            <li>
+                                {signer_address.slice(0, 5) + "..." + signer_address.slice(38)}
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -87,23 +100,41 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
                                         <div className="blog-card blog-card-2">
                                             <div className="blog-img">
                                                 <Link href="/ticket/1">
-                                                    <img src="../tick.webp" className='h-[200px] w-[100%]' alt="image" />
+                                                    <img
+                                                        src="../tick.webp"
+                                                        className="h-[200px] w-[100%]"
+                                                        alt="image"
+                                                    />
                                                 </Link>
                                             </div>
                                             <div className="blog-text-area">
                                                 <div className="blog-date">
                                                     <ul>
-                                                        <li><i className="fas fa-user"></i> By 0x443..</li>
+                                                        <li>
+                                                            <i className="fas fa-user"></i> By 0x443..
+                                                        </li>
                                                         <li>Direct Flight</li>
-                                                        <li><i className="far fa-calendar-alt"></i> 10 July 2023</li>
+                                                        <li>
+                                                            <i className="far fa-calendar-alt"></i> 10 July
+                                                            2023
+                                                        </li>
                                                     </ul>
                                                 </div>
-                                                <h4><Link href="#">Mumbai to Goa</Link></h4>
+                                                <h4>
+                                                    <Link href="#">Mumbai to Goa</Link>
+                                                </h4>
                                                 <p>Cabin is economyy</p>
                                             </div>
                                             <div className="m-4 flex justify-end">
-                                                <button className="mr-24" type="submit"><span>3 Travellers</span></button>
-                                                <Link className="default-button default-button-2" href="#"><span>Buy Ticket</span></Link>
+                                                <button className="mr-24" type="submit">
+                                                    <span>3 Travellers</span>
+                                                </button>
+                                                <Link
+                                                    className="default-button default-button-2"
+                                                    href="#"
+                                                >
+                                                    <span>Buy Ticket</span>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +145,7 @@ const userProfile = ({ signer_address, initiateMoralis }) => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default userProfile
+export default UserProfile;
