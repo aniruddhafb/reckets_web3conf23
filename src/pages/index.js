@@ -50,7 +50,7 @@ export default function Home() {
       <div className="blog pb-100 bg-f9faff pt-16">
         <div className="container">
           <div className="default-section-title default-section-title-middle">
-            <h6>TICKETS</h6>
+            <h6>RESELLING TICKETS</h6>
             <h3>Available Tickets</h3>
           </div>
           <div className="section-content">
