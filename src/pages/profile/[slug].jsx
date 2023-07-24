@@ -94,11 +94,10 @@ const UserProfile = ({ signer_address, initiateMoralis, defaultCollectionAddress
                         <div className="row justify-content-center">
                             {/* loop tickets here  */}
                             {nfts?.map((e, index) => {
-                                console.log({ nfts: nfts })
-                                if (nfts?.token_address == defaultCollectionAddress) {
+                                if (e?.token_address == defaultCollectionAddress) {
                                     setTokenFound(true);
                                 }
-                                return nfts?.token_address == defaultCollectionAddress && (
+                                return e?.token_address == defaultCollectionAddress && (
                                     <div className="col-lg-4 col-md-6 col-sm-12 col-12">
                                         <div className="blog-card blog-card-2">
                                             <div className="blog-img">
