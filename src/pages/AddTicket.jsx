@@ -8,12 +8,12 @@ const AddTicket = ({ create_token }) => {
     location: "",
     date: "",
     destination: "",
-    travellers: "",
-    flight_type: "",
-    cabin_type: "",
-    flight_mode: "",
+    travellers: "1",
+    flight_type: "return",
+    cabin_type: "Economy",
+    flight_mode: "Direct",
     upload_ticket: "",
-    airline_name: "",
+    airline_name: "Akasa Air",
     email: "",
     cancellation_reason: "",
   });
@@ -24,6 +24,7 @@ const AddTicket = ({ create_token }) => {
 
   const handle_submit = async (e) => {
     e.preventDefault();
+    console.log(data);
     await create_token(data);
   };
   return (

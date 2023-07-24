@@ -5,7 +5,6 @@ import collectionABI from "../../artifacts/contracts/NFTCollection.sol/NFTCollec
 import marketplaceABI from "../../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json";
 import Moralis from "moralis";
 
-
 // importing external techs
 import { ThirdwebStorage } from "@thirdweb-dev/storage";
 
@@ -135,7 +134,7 @@ export default function App({ Component, pageProps }) {
     const tokenURI = await storage.upload(data);
 
     const txn = await collection_contract.createToken(tokenURI);
-    console.log(txn.address);
+    console.log(txn);
   };
 
   useEffect(() => {
