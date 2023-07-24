@@ -24,8 +24,12 @@ const AddTicket = () => {
                             <div className="login-form pr-20">
                                 <form>
                                     <div className="mb-3">
+                                        <label for="exampleInputEmail1" className="form-label">Depart Location*</label>
+                                        <input name="depart" type='text' required placeholder='Initial Depart Location' className="form-control" />
+                                    </div>
+                                    <div className="mb-3">
                                         <label for="exampleInputEmail1" className="form-label">Destination*</label>
-                                        <input type="destination" required placeholder='Arrival Destination' className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                        <input name="destination" type='text' required placeholder='Arrival Destination' className="form-control" />
                                     </div>
                                     <div className="mb-3">
                                         <label for="exampleInputPassword1" className="form-label">Flight Type*</label>
@@ -63,6 +67,10 @@ const AddTicket = () => {
                                             <GoChevronDown className='text-[20px] absolute right-1 top-2' />
                                         </div>
                                     </div>
+                                    <div className="mb-3">
+                                        <label for="exampleInputEmail1" className="form-label">Cancellation Reason*</label>
+                                        <input type="text" name='cancelReason' required placeholder='Short reason for cancellation' className="form-control" />
+                                    </div>
                                     <button type="button" className="default-button"><span>Add Ticket</span></button>
                                 </form>
                             </div>
@@ -70,6 +78,10 @@ const AddTicket = () => {
                         <div className="col-lg-6 col-md-12 col-sm-12 col-12">
                             <div className="login-form">
                                 <form>
+                                    <div className="mb-3">
+                                        <label for="exampleInputPassword1" className="form-label">Depart Date*</label>
+                                        <input type="date" name='flightDate' required className="form-control" />
+                                    </div>
                                     <div className="mb-3">
                                         <label for="exampleInputPassword1" className="form-label">Travellers*</label>
                                         <div className='relative'>
