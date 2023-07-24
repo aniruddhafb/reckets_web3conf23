@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import React from 'react'
 
 const Ticket = () => {
@@ -45,12 +46,15 @@ const Ticket = () => {
 
                         {/* buy show if listed  */}
                         <div className="col-md-12 mt-8">
-                            <button className="default-button" type="submit"><span>Buy Ticket</span></button>
+                            {/* <button className="default-button" type="submit"><span>Buy Ticket</span></button> */}
+                            <Link className="default-button default-button-2" href="#"><span>Buy Ticket</span></Link>
                         </div>
 
                         {/* only owner can see this */}
                         <div className="col-md-12 mt-8">
-                            <button className="default-button" type="submit"><span>Put on sale</span></button>
+                            {/* <button className="default-button" type="submit"><span>Put on sale</span></button> */}
+                            <Link className="default-button default-button-2" href="#"><span>Put on sale</span></Link>
+
                         </div>
 
                         {/* <div className="bd-form details-text-area bg-f9faff pr-20" id="bd-form">
