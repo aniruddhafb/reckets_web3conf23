@@ -13,6 +13,7 @@ const Footer = () => {
                             <div className="footer-social-icons">
                                 <ul>
                                     <li><a href="https://github.com/aniruddhafb/reckets" target="_blank"><i className="fab fa-github"></i></a></li>
+                                    <li><a href="https://github.com/aniruddhafb/reckets" target="_blank"><i className="fab fa-youtube"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -21,9 +22,9 @@ const Footer = () => {
                         <div className="footer-links footer-quick-links">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><Link href="../About" target="_blank"><i className="fas fa-angle-right"></i> <span>About</span></Link></li>
-                                <li><Link href="../BuyTicket" target="_blank"><i className="fas fa-angle-right"></i> <span>Buy Tickets</span></Link></li>
-                                <li><Link href="../SellTicket" target="_blank"><i className="fas fa-angle-right"></i> <span>Resell Flight Tickets</span></Link></li>
+                                <li><Link href="../About"><i className="fas fa-angle-right"></i> <span>About</span></Link></li>
+                                <li><Link href="../BuyTicket"><i className="fas fa-angle-right"></i> <span>Buy Tickets</span></Link></li>
+                                <li><Link href="../AddTicket"><i className="fas fa-angle-right"></i> <span>Resell Flight Tickets</span></Link></li>
                             </ul>
                         </div>
                     </div>

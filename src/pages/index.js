@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       {/* hero section */}
-      <div className="banner bg-mainColor">
+      <div className="banner bg-mainColor pt-[200px]">
         <div className="shape">
           <img className="shape1" src="../banner-circle-2.png" alt="image" />
           <img className="shape2" src="../dot-dot.png" alt="image" />
@@ -14,11 +14,11 @@ export default function Home() {
           <div className="row align-items-center">
             <div className="col-lg-7">
               <div className="banner-text-area-2 banner-text-area-3">
-                <h1>Resell your online tickets very easily!!</h1>
-                <p>A platform where you can resell your flight, boat, movies tickets very easily. Buy tickets on reckets in the form of NFTs backed by the blockchain security. </p>
+                <h1>Resell your flight tickets very easily!!</h1>
+                <p>A platform where you can resell your flight tickets very easily. Buy tickets on reckets in the form of NFTs backed by the blockchain security. </p>
                 <div className="banner-button-group">
                   <Link className="default-button default-button-2" href="/BuyTicket"><span>Buy Tickets</span></Link>
-                  <Link className="default-button default-button-2 last-btn" href="/SellTicket"><span>Resell Tickets</span></Link>
+                  <Link className="default-button default-button-2 last-btn" href="/AddTicket"><span>Resell Tickets</span></Link>
                 </div>
               </div>
             </div>
@@ -40,6 +40,8 @@ export default function Home() {
             <img src="../indgio.png" className='h-[70px] mr-14' alt="image" />
             <img src="../airasia.png" className='h-[45px] mr-14 mt-2' alt="image" />
             <img src="../jet.png" className='h-[80px] mr-14 mb-2' alt="image" />
+            <img src="../sky.png" className='h-[90px] mr-14 mb-2' alt="image" />
+            <img src="../spice.png" className='h-[70px] mr-14 mt-2' alt="image" />
           </div>
         </div>
       </div>
@@ -84,7 +86,7 @@ export default function Home() {
           </div>
           <div className="section-content">
             <div className="row justify-content-center g-0">
-              <div className="col-lg-4 col-md-6 col-sm-6 col-12">
+              {/* <div className="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div className="service-card-3">
                   <div className="service-card-icon-area">
                     <i className="flaticon-content"></i>
@@ -92,14 +94,14 @@ export default function Home() {
                   <h4><a href="#">Buy Flight Tickets</a></h4>
                   <p>Buy fresh new flight tickets in the form of NFTs on polygon. Comes with priority reselling, blockchain security and many more things.. </p>
                 </div>
-              </div>
+              </div> */}
               <div className="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div className="service-card-3">
                   <div className="service-card-icon-area">
                     <i className="flaticon-content"></i>
                   </div>
                   <h4><a href="#">Resell Flight Tickets</a></h4>
-                  <p>Resell your purchased flight tickets from reckets. Third party reselling will be enabled soon.. </p>
+                  <p>Resell your purchased flight tickets with very minimal comission on sales. </p>
                 </div>
               </div>
               <div className="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -108,7 +110,7 @@ export default function Home() {
                     <i className="flaticon-content"></i>
                   </div>
                   <h4><a href="#">Resell Boat Tickets (Coming Soon)</a></h4>
-                  <p>Resell your purchased boat tickets from reckets. Third party reselling will be enabled soon.. </p>
+                  <p>Resell your purchased boat tickets on reckets and get best deals </p>
                 </div>
               </div>
             </div>
