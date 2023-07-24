@@ -157,6 +157,7 @@ export default function App({ Component, pageProps }) {
         create_token={create_token}
         signer_address={signer_address}
         initiateMoralis={initiateMoralis}
+        defaultCollectionAddress={defaultCollectionAddress}
       />
       <Footer />
     </>

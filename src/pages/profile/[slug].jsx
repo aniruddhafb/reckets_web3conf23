@@ -8,10 +8,11 @@ import { EvmChain } from "@moralisweb3/common-evm-utils";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const UserProfile = ({ signer_address, initiateMoralis }) => {
+const UserProfile = ({ signer_address, initiateMoralis, defaultCollectionAddress }) => {
     const router = useRouter();
     const { slug } = router.query;
     const [nfts, set_nfts] = useState([]);
+    const [tokenFound, setTokenFound] = useState(false);
 
     // getting nfts direct via on chain using moralis
     const getProfileNFTs_moralis = async () => {
@@ -88,14 +89,16 @@ const UserProfile = ({ signer_address, initiateMoralis }) => {
                 <div className="container">
                     <div className="default-section-title default-section-title-middle">
                         <h6>YOUR TICKETS</h6>
-                        {/* <h3>Listed Tickets</h3> */}
                     </div>
                     <div className="section-content">
                         <div className="row justify-content-center">
                             {/* loop tickets here  */}
                             {nfts?.map((e, index) => {
-                                const nft_info = JSON.parse(e.metadata);
-                                return (
+                                console.log({ nfts: nfts })
+                                if (nfts?.token_address == defaultCollectionAddress) {
+                                    setTokenFound(true);
+                                }
+                                return nfts?.token_address == defaultCollectionAddress && (
                                     <div className="col-lg-4 col-md-6 col-sm-12 col-12">
                                         <div className="blog-card blog-card-2">
                                             <div className="blog-img">
@@ -142,6 +145,11 @@ const UserProfile = ({ signer_address, initiateMoralis }) => {
                             })}
                         </div>
                     </div>
+                    {!tokenFound &&
+                        <div className="default-section-title default-section-title-middle">
+                            <h3>No Tickets in your wallet</h3>
+                        </div>
+                    }
                 </div>
             </div>
         </>
