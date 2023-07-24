@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ethers, Wallet } from "ethers";
+import collectionABI from "../../artifacts/contracts/NFTCollection.sol/NFTCollection.json";
+import marketplaceABI from "../../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json";
 
 // importing external techs
 import { ThirdwebStorage } from "@thirdweb-dev/storage";
@@ -111,6 +113,19 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const create_token = async (data) => {
+    const collection_contract = new ethers.Contract(
+      defaultCollectionAddress,
+      collectionABI.abi,
+      signer
+    );
+
+    const tokenURI = await storage.upload(data);
+
+    const txn = await collection_contract.createToken(tokenURI);
+    console.log(txn.address);
+  };
+
   useEffect(() => {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", () => {
@@ -126,7 +141,11 @@ export default function App({ Component, pageProps }) {
         connectToWallet={connectToWallet}
         signer_address={signer_address}
       />
-      <Component {...pageProps} signer_address={signer_address} />
+      <Component
+        {...pageProps}
+        create_token={create_token}
+        signer_address={signer_address}
+      />
       <Footer />
     </>
   );

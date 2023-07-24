@@ -1,7 +1,8 @@
 import React from "react";
 import { GoChevronDown } from "react-icons/go";
 import { useState } from "react";
-const AddTicket = () => {
+
+const AddTicket = ({ create_token }) => {
   const [data, set_data] = useState({
     location: "",
     date: "",
@@ -18,6 +19,11 @@ const AddTicket = () => {
 
   const handle_change = (e) => {
     set_data({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handle_submit = async (e) => {
+    e.preventDefault();
+    await create_token(data);
   };
   return (
     <>
@@ -43,7 +49,7 @@ const AddTicket = () => {
           <div className="row">
             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
               <div className="login-form pr-20">
-                <form>
+                <form onSubmit={handle_submit}>
                   <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">
                       Depart Location*
@@ -137,96 +143,95 @@ const AddTicket = () => {
                       className="form-control"
                     />
                   </div>
-                  <button type="button" className="default-button">
-                    <span>Add Ticket</span>
+                  <button type="submit" className="default-button">
+                    Add Ticket
                   </button>
                 </form>
               </div>
             </div>
             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
               <div className="login-form">
-                <form>
-                  <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">
-                      Depart Date*
-                    </label>
-                    <input
+                <div className="mb-3">
+                  <label for="exampleInputPassword1" className="form-label">
+                    Depart Date*
+                  </label>
+                  <input
+                    onChange={handle_change}
+                    type="date"
+                    name="date"
+                    required
+                    className="form-control"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label for="exampleInputPassword1" className="form-label">
+                    Travellers*
+                  </label>
+                  <div className="relative">
+                    <select
                       onChange={handle_change}
-                      type="date"
-                      name="flightDate"
-                      required
+                      name="travellers"
                       className="form-control"
-                    />
+                    >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    <GoChevronDown className="text-[20px] absolute right-1 top-2" />
                   </div>
-                  <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">
-                      Travellers*
-                    </label>
-                    <div className="relative">
-                      <select
-                        onChange={handle_change}
-                        name="travellers"
-                        className="form-control"
-                      >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                      <GoChevronDown className="text-[20px] absolute right-1 top-2" />
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">
-                      Cabin Type*
-                    </label>
-                    <div className="relative">
-                      <select
-                        onChange={handle_change}
-                        name="cabin_type"
-                        className="form-control"
-                      >
-                        <option value="Economy">Economy</option>
-                        <option value="Premium Economy">Premium Economy</option>
-                        <option value="Business Class">Business Class</option>
-                        <option value="First Class">First Class</option>
-                      </select>
-                      <GoChevronDown className="text-[20px] absolute right-1 top-2" />
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label for="exampleInputUsername1" className="form-label">
-                      Upload Ticket*
-                    </label>
-                    <input
-                      onChange={(e) =>
-                        set_data({ ...data, upload_ticket: e.target.files[0] })
-                      }
-                      type="file"
-                      name="ticketImg"
-                      required
+                </div>
+                <div className="mb-3">
+                  <label for="exampleInputPassword1" className="form-label">
+                    Cabin Type*
+                  </label>
+                  <div className="relative">
+                    <select
+                      onChange={handle_change}
+                      name="cabin_type"
                       className="form-control"
-                      id="exampleInputUsername1"
-                    />
+                    >
+                      <option value="Economy">Economy</option>
+                      <option value="Premium Economy">Premium Economy</option>
+                      <option value="Business Class">Business Class</option>
+                      <option value="First Class">First Class</option>
+                    </select>
+                    <GoChevronDown className="text-[20px] absolute right-1 top-2" />
                   </div>
-                  <div className="mb-3">
-                    <label for="exampleInputEmail1" className="form-label">
-                      Email address
-                    </label>
-                    <input
-                      type="email"
-                      name="emailID"
-                      placeholder="example@gmail.com"
-                      className="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                    <div id="emailHelp" className="form-text">
-                      We'll never share your email with anyone else.
-                    </div>
+                </div>
+                <div className="mb-3">
+                  <label for="exampleInputUsername1" className="form-label">
+                    Upload Ticket*
+                  </label>
+                  <input
+                    onChange={(e) =>
+                      set_data({ ...data, upload_ticket: e.target.files[0] })
+                    }
+                    type="file"
+                    name="ticketImg"
+                    required
+                    className="form-control"
+                    id="exampleInputUsername1"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label for="exampleInputEmail1" className="form-label">
+                    Email address
+                  </label>
+                  <input
+                    onChange={handle_change}
+                    type="email"
+                    name="email"
+                    placeholder="example@gmail.com"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                  />
+                  <div id="emailHelp" className="form-text">
+                    We'll never share your email with anyone else.
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
