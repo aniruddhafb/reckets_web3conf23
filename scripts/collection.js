@@ -9,8 +9,8 @@ const hre = require("hardhat");
 async function main() {
   const collection = await hre.ethers.getContractFactory("NFTCollection");
   const collection_contract = await collection.deploy(
-    "Rekets NFT Collection",
-    "Rekets"
+    "Reckets NFT Collection",
+    "Reckets"
   );
 
   await collection_contract.deployed();
