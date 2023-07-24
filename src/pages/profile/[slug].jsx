@@ -30,8 +30,6 @@ const UserProfile = ({
       });
       set_nfts(response.jsonResponse.result);
       let my_nfts = [];
-      //   e.token_address.toLowerCase() ==
-      //   defaultCollectionAddress.toLowerCase()
       for (const a of response.jsonResponse.result) {
         if (
           a.token_address.toLowerCase() ==
