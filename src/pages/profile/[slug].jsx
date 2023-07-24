@@ -67,7 +67,7 @@ const userProfile = ({ signer_address }) => {
                                     </div>
                                     <div className="m-4 flex justify-end">
                                         <button className="mr-24" type="submit"><span>3 Travellers</span></button>
-                                        <button className="default-button mr-6" type="submit"><span>Buy Ticket</span></button>
+                                        <Link className="default-button default-button-2" href="#"><span>Buy Ticket</span></Link>
                                     </div>
                                 </div>
                             </div>
