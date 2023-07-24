@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { ethers, Wallet } from "ethers";
 import collectionABI from "../../artifacts/contracts/NFTCollection.sol/NFTCollection.json";
 import marketplaceABI from "../../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json";
+import Moralis from "moralis";
+
 
 // importing external techs
 import { ThirdwebStorage } from "@thirdweb-dev/storage";
@@ -79,6 +81,16 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const initiateMoralis = async () => {
+    try {
+      await Moralis.start({
+        apiKey: process.env.NEXT_PUBLIC_MORALIS_API,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const switchPolygonChain = async () => {
     try {
       await window.ethereum.request({
@@ -145,6 +157,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         create_token={create_token}
         signer_address={signer_address}
+        initiateMoralis={initiateMoralis}
       />
       <Footer />
     </>
