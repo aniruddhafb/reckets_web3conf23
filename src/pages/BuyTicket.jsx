@@ -1,9 +1,19 @@
+import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 
 const BuyTicket = () => {
     return (
         <>
+            <Head>
+                <title>Buy Tickets</title>
+                <meta
+                    name="description"
+                    content="A platform to resell your online tickets"
+                />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.png" />
+            </Head>
 
             <div className=" pb-100 pt-[200px]">
                 <div className="container">
