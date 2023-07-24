@@ -137,6 +137,37 @@ export default function App({ Component, pageProps }) {
     console.log(txn);
   };
 
+  const list_token = async (token_id, price) => {
+    const marketplace_contract = new ethers.Contract(
+      marketplaceAddress,
+      marketplaceABI.abi,
+      signer
+    );
+
+    const txn = await marketplace_contract.ListToken(
+      token_id,
+      price,
+      defaultCollectionAddress
+    );
+
+    console.log(txn);
+  };
+
+  const buy_token = async (token_id) => {
+    const marketplace_contract = new ethers.Contract(
+      marketplaceAddress,
+      marketplaceABI.abi,
+      signer
+    );
+
+    const txn = await marketplace_contract.executeSale(
+      token_id,
+      defaultCollectionAddress
+    );
+
+    console.log(txn);
+  };
+
   useEffect(() => {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", () => {
@@ -154,6 +185,8 @@ export default function App({ Component, pageProps }) {
       />
       <Component
         {...pageProps}
+        list_token={list_token}
+        buy_token={buy_token}
         create_token={create_token}
         signer_address={signer_address}
         initiateMoralis={initiateMoralis}
