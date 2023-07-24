@@ -128,7 +128,10 @@ export default function App({ Component, pageProps }) {
         connectToWallet={connectToWallet}
         signer_address={signer_address}
       />
-      <Component {...pageProps} />
+      <Component
+        {...pageProps}
+        signer_address={signer_address}
+      />
       <Footer />
     </>
   )

@@ -29,7 +29,7 @@ const Navbar = ({ connectToWallet, signer_address }) => {
                                 aria-label="toggle profile dropdown"
                                 onClick={() => SetShowProfile(!showProfile)}
                             >
-                                <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full object-cover">
+                                <div className="w-10 h-10 overflow-hidden border-2 border-gray-400 rounded-full object-cover">
                                     <Image
                                         src={defaultAvatar}
                                         height={100}
@@ -37,8 +37,8 @@ const Navbar = ({ connectToWallet, signer_address }) => {
                                         alt="avatar"
                                         style={{
                                             borderRadius: "50%",
-                                            width: "40px",
-                                            height: "33px",
+                                            width: "50px",
+                                            height: "43px",
                                         }}
                                     />
                                 </div>

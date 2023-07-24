@@ -4,17 +4,6 @@ import React from 'react'
 const BuyTicket = () => {
     return (
         <>
-            {/* <div className="uni-banner pt-[200px]">
-                <div className="container">
-                    <div className="uni-banner-text-area">
-                        <h1>Resell Ticket</h1>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li>Add Ticket</li>
-                        </ul>
-                    </div>
-                </div>
-            </div> */}
 
             <div className=" pb-100 pt-[200px]">
                 <div className="container">
