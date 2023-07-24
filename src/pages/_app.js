@@ -168,6 +168,16 @@ export default function App({ Component, pageProps }) {
     console.log(txn);
   };
 
+  const get_listed_nfts = async () => {
+    const marketplace_contract = new ethers.Contract(
+      marketplaceAddress,
+      marketplaceABI.abi,
+      signer
+    );
+
+    const res = await marketplace_contract.getAllNFTs();
+  };
+
   useEffect(() => {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", () => {
@@ -185,6 +195,7 @@ export default function App({ Component, pageProps }) {
       />
       <Component
         {...pageProps}
+        get_listed_nfts={get_listed_nfts}
         list_token={list_token}
         buy_token={buy_token}
         create_token={create_token}
