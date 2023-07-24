@@ -5,23 +5,21 @@ import { ethers, Wallet } from "ethers";
 // importing external techs
 import { ThirdwebStorage } from "@thirdweb-dev/storage";
 
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-import '@/styles/globals.css'
-import '@/styles/bootstrap.min.css'
-import '@/styles/style.css'
-import '@/styles/responsive.css'
+import "@/styles/globals.css";
+import "@/styles/bootstrap.min.css";
+import "@/styles/style.css";
+import "@/styles/responsive.css";
 
-import '@/styles/animate.min.css'
-import '@/styles/fontawsome.min.css'
-import '@/styles/meanmenu.min.css'
-import '@/styles/nice-select.min.css'
-import '@/styles/barfiller.min.css'
-import '@/styles/magnific-popup.min.css'
-import '@/styles/odometer.min.css'
-
-
+import "@/styles/animate.min.css";
+import "@/styles/fontawsome.min.css";
+import "@/styles/meanmenu.min.css";
+import "@/styles/nice-select.min.css";
+import "@/styles/barfiller.min.css";
+import "@/styles/magnific-popup.min.css";
+import "@/styles/odometer.min.css";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -36,8 +34,8 @@ export default function App({ Component, pageProps }) {
   const [format_signer_bal, set_format_signer_bal] = useState(0);
   const [nfts, set_nfts] = useState([]);
 
-  const defaultCollectionAddress = "0x54aD752a6F238Ab6D674bbde887231e241fc6098";
-  const marketplaceAddress = "0x315Fb6A0D6Ea560b6D87425b029052112987C6cC";
+  const defaultCollectionAddress = "0x877D6Fa1b6EDfd3f0666171613b8bd5f406B5eFC";
+  const marketplaceAddress = "0x31Cfe2bB9a967668BCa5F0EFC071Ae5C5A0c1abA";
 
   const connectToWallet = async () => {
     if (window?.ethereum) {
@@ -77,7 +75,7 @@ export default function App({ Component, pageProps }) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const switchPolygonChain = async () => {
     try {
@@ -120,7 +118,7 @@ export default function App({ Component, pageProps }) {
       });
       connectToWallet();
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -128,11 +126,8 @@ export default function App({ Component, pageProps }) {
         connectToWallet={connectToWallet}
         signer_address={signer_address}
       />
-      <Component
-        {...pageProps}
-        signer_address={signer_address}
-      />
+      <Component {...pageProps} signer_address={signer_address} />
       <Footer />
     </>
-  )
+  );
 }
