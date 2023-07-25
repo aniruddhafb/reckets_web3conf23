@@ -162,7 +162,7 @@ const AddTicket = ({ create_token }) => {
                         />
                       </div>
                       <button type="submit"
-                        className="default-button-2"
+                        className="default-button default-button-2"
                       >
                         <span>Add Ticket</span>
                       </button>
