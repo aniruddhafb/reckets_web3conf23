@@ -14,6 +14,7 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
 
   const router = useRouter();
   const { slug } = router.query;
+  const tokenId = slug;
 
   const [price, set_price] = useState("");
   const [putSale, setPutSale] = useState(false);
@@ -21,7 +22,10 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
   const [NFTInfo, setNFTInfo] = useState([]);
 
   const sell_token = async () => {
+    console.log(tokenId, price)
+    set_loading(true);
     await list_token(tokenId, price);
+    set_loading(false);
   };
 
   const getNFTInfo_moralis = async () => {
@@ -169,9 +173,9 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                     <form>
                       <div className="row">
                         <div>
-                          <input type="number" className="form-control" placeholder="Enter amount in matic" required />
+                          <input type="number" className="form-control" onChange={(e) => set_price(e.target.value)} placeholder="Enter amount in matic" required />
                         </div>
-                        <div className="default-button default-button-2 cursor-pointer" >
+                        <div className="default-button default-button-2 cursor-pointer" onClick={() => sell_token()} >
                           <span>List for sale</span>
                         </div>
                       </div>

@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect } from 'react'
 import { MdDirectionsBoat, MdFlightTakeoff } from "react-icons/md"
 
-export default function Home() {
+export default function Home({ listedTickets }) {
+  console.log({ listedTickets: listedTickets })
   return (
     <>
       <Head>
