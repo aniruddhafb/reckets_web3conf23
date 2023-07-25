@@ -129,10 +129,14 @@ const UserProfile = ({
                                                 <div className="blog-card blog-card-2 overflow-hidden">
                                                     <div className="blog-img">
                                                         <Link href={`/ticket/${e.token_id}`}>
-                                                            <img
-                                                                src="../tick.webp"
+                                                            <Image
+                                                                height={100}
+                                                                width={100}
+                                                                src={e?.upload_ticket.replace(
+                                                                    "ipfs://",
+                                                                    "https://ipfs.io/ipfs/"
+                                                                )}
                                                                 className="h-[200px] w-[100%]"
-                                                                alt="image"
                                                             />
                                                         </Link>
                                                     </div>
@@ -162,7 +166,7 @@ const UserProfile = ({
                                                                 className="default-button default-button-2"
                                                                 href={`/ticket/${e.token_id}`}
                                                             >
-                                                                <span>Sell Ticket</span>
+                                                                <span>View Ticket</span>
                                                             </Link>
                                                             :
                                                             <Link

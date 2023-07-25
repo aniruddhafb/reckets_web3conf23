@@ -191,7 +191,7 @@ export default function App({ Component, pageProps }) {
   };
 
   // buy ticket 
-  const buy_token = async (token_id) => {
+  const buy_token = async (token_id, listingPrice) => {
     const marketplace_contract = new ethers.Contract(
       marketplaceAddress,
       marketplaceABI.abi,
@@ -200,7 +200,10 @@ export default function App({ Component, pageProps }) {
 
     const txn = await marketplace_contract.executeSale(
       token_id,
-      defaultCollectionAddress
+      defaultCollectionAddress,
+      {
+        value: ethers.utils.parseEther(listingPrice),
+      }
     );
 
     console.log(txn);

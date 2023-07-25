@@ -8,9 +8,11 @@ import { EvmChain } from "@moralisweb3/common-evm-utils";
 import Loader from "@/components/Loader";
 import axios from "axios";
 import Image from "next/image";
+import { BsBrowserChrome } from "react-icons/bs"
+import { MdDataExploration } from "react-icons/md";
 
 
-const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_address }) => {
+const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_address, buy_token }) => {
 
   const router = useRouter();
   const { slug } = router.query;
@@ -22,9 +24,14 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
   const [NFTInfo, setNFTInfo] = useState([]);
 
   const sell_token = async () => {
-    console.log(tokenId, price)
     set_loading(true);
     await list_token(tokenId, price);
+    set_loading(false);
+  };
+
+  const buyToken = async () => {
+    set_loading(true);
+    await buy_token(tokenId);
     set_loading(false);
   };
 
@@ -49,6 +56,7 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
         token_address: a.token_address,
         token_id: a.token_id,
         minter_address: a.minter_address,
+        token_uri: a.token_uri,
       };
 
       my_nfts.push(obj);
@@ -136,6 +144,30 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                   <div className="social-icons">
                     <ul>
                       <li>
+                        <span>Block Explore:</span>
+                      </li>
+                      <li>
+                        <a href={`https://mumbai.polygonscan.com/token/${defaultCollectionAddress}?a=${slug}`} target="_blank">
+                          <BsBrowserChrome />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="social-icons">
+                    <ul>
+                      <li>
+                        <span>Metadata:</span>
+                      </li>
+                      <li>
+                        <a href={NFTInfo[0]?.token_uri} target="_blank">
+                          <MdDataExploration />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="social-icons">
+                    <ul>
+                      <li>
                         <span>Share:</span>
                       </li>
                       <li>
@@ -149,7 +181,7 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
 
                 {putSale == false &&
                   <div>
-                    {NFTInfo[0]?.minter_address.toLowerCase() === signer_address.toLowerCase() ?
+                    {NFTInfo[0]?.minter_address.toLowerCase() == signer_address.toLowerCase() ?
                       <div className="col-md-12 mt-8">
                         <div className="default-button default-button-2 cursor-pointer" onClick={() => setPutSale(true)} >
                           <span>Put on sale</span>
@@ -158,7 +190,7 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                       :
                       //  integrate buyticket here
                       <div className="col-md-12 mt-8">
-                        <div className="default-button default-button-2" href="#">
+                        <div className="default-button default-button-2 cursor-pointer" onClick={() => buyToken()}>
                           <span>Buy Ticket</span>
                         </div>
                       </div>
