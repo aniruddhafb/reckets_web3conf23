@@ -8,12 +8,19 @@ import { EvmChain } from "@moralisweb3/common-evm-utils";
 import Loader from "@/components/Loader";
 import axios from "axios";
 import Image from "next/image";
-import { BsBrowserChrome } from "react-icons/bs"
+import { BsBrowserChrome } from "react-icons/bs";
 import { MdDataExploration } from "react-icons/md";
+import { Signer } from "ethers";
 
-
-const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_address, buy_token, get_listed_token_by_id }) => {
-
+const Ticket = ({
+  list_token,
+  initiateMoralis,
+  defaultCollectionAddress,
+  signer_address,
+  buy_token,
+  get_listed_token_by_id,
+  signer,
+}) => {
   const router = useRouter();
   const { slug } = router.query;
   const tokenId = slug;
@@ -61,24 +68,23 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
 
       my_nfts.push(obj);
       setNFTInfo(my_nfts);
-      console.log(my_nfts)
-      console.log(NFTInfo)
-
+      console.log(my_nfts);
+      console.log(NFTInfo);
     } catch (error) {
       console.log(error);
     }
     set_loading(false);
   };
 
-  const listed_token = async () => {
-    await get_listed_token_by_id(slug);
+  const get_listed_token = async () => {
+    const res = await get_listed_token_by_id(slug);
   };
 
   useEffect(() => {
     if (!slug) return;
     getNFTInfo_moralis();
-    // listed_token();
-  }, [slug]);
+    get_listed_token();
+  }, [slug, signer]);
 
   return (
     <>
@@ -87,7 +93,10 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
       ) : (
         <div className="blog-details pb-100 pt-[200px]">
           <Head>
-            <title>{NFTInfo[0]?.location} to {NFTInfo[0]?.destination} - Flight Ticket</title>
+            <title>
+              {NFTInfo[0]?.location} to {NFTInfo[0]?.destination} - Flight
+              Ticket
+            </title>
             <meta
               name="description"
               content="A platform to resell your online tickets"
@@ -103,7 +112,6 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
             <div className="row">
               <div className="col-lg-8 col-md-12 col-sm-12 col-12">
                 <div className="blog-details-text-area details-text-area pr-20">
-
                   <Image
                     height={100}
                     width={100}
@@ -115,16 +123,35 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                   />
 
                   <p>(Cabin type is {NFTInfo[0]?.cabin_type})</p>
-                  <h3>Flight ticket from {NFTInfo[0]?.location} to {NFTInfo[0]?.destination}</h3>
-                  <p>This flight ticket owner should board the flight from  {NFTInfo[0]?.location} airport on {NFTInfo[0]?.date}</p>
+                  <h3>
+                    Flight ticket from {NFTInfo[0]?.location} to{" "}
+                    {NFTInfo[0]?.destination}
+                  </h3>
+                  <p>
+                    This flight ticket owner should board the flight from{" "}
+                    {NFTInfo[0]?.location} airport on {NFTInfo[0]?.date}
+                  </p>
 
-                  <p>Also this flight ticket is a {NFTInfo[0]?.flight_mode} ticket with {NFTInfo[0]?.flight_type}  {NFTInfo[0]?.flight_type != "Direct" ? "on the way i.e you have to board another flights (connect in airports)" : "flight i.e the flight will directly react the destination with no stops"}</p>
+                  <p>
+                    Also this flight ticket is a {NFTInfo[0]?.flight_mode}{" "}
+                    ticket with {NFTInfo[0]?.flight_type}{" "}
+                    {NFTInfo[0]?.flight_type != "Direct"
+                      ? "on the way i.e you have to board another flights (connect in airports)"
+                      : "flight i.e the flight will directly react the destination with no stops"}
+                  </p>
 
-                  {NFTInfo[0]?.cabin_type != "Economy" ?
-                    <p>This is a {NFTInfo[0]?.cabin_type} ticket so you have all the meals and services included, view the ticket for more info..</p>
-                    :
-                    <p>This is a {NFTInfo[0]?.cabin_type} class ticket so you don't have any meals included</p>
-                  }
+                  {NFTInfo[0]?.cabin_type != "Economy" ? (
+                    <p>
+                      This is a {NFTInfo[0]?.cabin_type} ticket so you have all
+                      the meals and services included, view the ticket for more
+                      info..
+                    </p>
+                  ) : (
+                    <p>
+                      This is a {NFTInfo[0]?.cabin_type} class ticket so you
+                      don't have any meals included
+                    </p>
+                  )}
 
                   {/* {NFTInfo[0]?.email != "" &&
                     <p><a href={`mailto:${NFTInfo[0]?.email}`}>Click here</a> to have a conversation with the owner of this ticket for more information</p>
@@ -156,7 +183,10 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                         <span>Block Explore:</span>
                       </li>
                       <li>
-                        <a href={`https://mumbai.polygonscan.com/token/${defaultCollectionAddress}?a=${slug}`} target="_blank">
+                        <a
+                          href={`https://mumbai.polygonscan.com/token/${defaultCollectionAddress}?a=${slug}`}
+                          target="_blank"
+                        >
                           <BsBrowserChrome />
                         </a>
                       </li>
@@ -188,42 +218,60 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                   </div>
                 </div>
 
-                {putSale == false &&
+                {putSale == false && (
                   <div>
-                    {NFTInfo[0]?.minter_address.toLowerCase() == signer_address.toLowerCase() ?
+                    {NFTInfo[0]?.minter_address.toLowerCase() ==
+                    signer_address.toLowerCase() ? (
                       <div className="col-md-12 mt-8">
-                        <div className="default-button default-button-2 cursor-pointer" onClick={() => setPutSale(true)} >
+                        <div
+                          className="default-button default-button-2 cursor-pointer"
+                          onClick={() => setPutSale(true)}
+                        >
                           <span>Put on sale</span>
                         </div>
                       </div>
-                      :
+                    ) : (
                       //  integrate buyticket here
                       <div className="col-md-12 mt-8">
-                        <div className="default-button default-button-2 cursor-pointer" onClick={() => buyToken()}>
+                        <div
+                          className="default-button default-button-2 cursor-pointer"
+                          onClick={() => buyToken()}
+                        >
                           <span>Buy Ticket</span>
                         </div>
                       </div>
-                    }
+                    )}
                   </div>
-                }
+                )}
 
                 {/* {list ticket integration here } */}
-                {putSale &&
-                  <div className="bd-form details-text-area bg-f9faff pr-20" id="bd-form">
+                {putSale && (
+                  <div
+                    className="bd-form details-text-area bg-f9faff pr-20"
+                    id="bd-form"
+                  >
                     <h3>Resell your ticket</h3>
                     <form>
                       <div className="row">
                         <div>
-                          <input type="number" className="form-control" onChange={(e) => set_price(e.target.value)} placeholder="Enter amount in matic" required />
+                          <input
+                            type="number"
+                            className="form-control"
+                            onChange={(e) => set_price(e.target.value)}
+                            placeholder="Enter amount in matic"
+                            required
+                          />
                         </div>
-                        <div className="default-button default-button-2 cursor-pointer" onClick={() => sell_token()} >
+                        <div
+                          className="default-button default-button-2 cursor-pointer"
+                          onClick={() => sell_token()}
+                        >
                           <span>List for sale</span>
                         </div>
                       </div>
                     </form>
                   </div>
-                }
-
+                )}
               </div>
               <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                 <div className="sidebar-area pt-30">
