@@ -105,9 +105,10 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                     <p>This is a {NFTInfo[0]?.cabin_type} class ticket so you don't have any meals included</p>
                   }
 
-                  {NFTInfo[0]?.email != "" &&
+                  {/* {NFTInfo[0]?.email != "" &&
                     <p><a href={`mailto:${NFTInfo[0]?.email}`}>Click here</a> to have a conversation with the owner of this ticket for more information</p>
-                  }
+                  } */}
+
                   <div className="blog-quote">
                     <h5>
                       <i className="fas fa-quote-left"></i>
