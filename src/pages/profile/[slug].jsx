@@ -129,8 +129,10 @@ const UserProfile = ({
                         <div className="blog-card blog-card-2 overflow-hidden">
                           <div className="blog-img">
                             <Link href={`/ticket/${e.token_id}`}>
-                              <img
-                                src="../tick.webp"
+                              <Image
+                                height={100}
+                                width={100}
+                                src={e?.upload_ticket.replace("ipfs://", "https://ipfs.io/ipfs/")}
                                 className="h-[200px] w-[100%]"
                                 alt="image"
                               />
@@ -164,22 +166,12 @@ const UserProfile = ({
                             <button className="mr-24" type="submit">
                               <span>{e.travellers} Travellers</span>
                             </button>
-                            {e?.minter_address.toLowerCase() ===
-                              slug.toLowerCase() ? (
-                              <button
-                                onClick={() => sell_token(e.token_id, "2")}
-                                className="default-button default-button-2"
-                              >
-                                <span>Sell Ticket</span>
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => sell_token(e.token_id, "2")}
-                                className="default-button default-button-2"
-                              >
-                                Sell Ticket
-                              </button>
-                            )}
+                            <Link
+                              href={`/ticket/${e.token_id}`}
+                              className="default-button default-button-2"
+                            >
+                              <span>View Ticket</span>
+                            </Link>
                           </div>
                         </div>
                       </div>

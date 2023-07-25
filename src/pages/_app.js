@@ -151,7 +151,7 @@ export default function App({ Component, pageProps }) {
 
     const txn = await collection_contract.createToken(tokenURI);
     await txn.wait();
-    console.log(txn);
+    router.push(`/profile/${signer_address}`)
   };
 
   // list ticket
@@ -186,7 +186,7 @@ export default function App({ Component, pageProps }) {
         }
       );
       await txn.wait();
-      console.log(txn);
+      router.reload();
     } catch (error) {
       console.log(error.message);
     }
@@ -194,21 +194,24 @@ export default function App({ Component, pageProps }) {
 
   // buy ticket
   const buy_token = async (token_id, listingPrice) => {
-    const marketplace_contract = new ethers.Contract(
-      marketplaceAddress,
-      marketplaceABI.abi,
-      signer
-    );
+    try {
+      const marketplace_contract = new ethers.Contract(
+        marketplaceAddress,
+        marketplaceABI.abi,
+        signer
+      );
 
-    const txn = await marketplace_contract.executeSale(
-      token_id,
-      defaultCollectionAddress,
-      {
-        value: ethers.utils.parseEther(listingPrice),
-      }
-    );
-
-    console.log(txn);
+      const txn = await marketplace_contract.executeSale(
+        token_id,
+        defaultCollectionAddress,
+        {
+          value: ethers.utils.parseEther(listingPrice.toString()),
+        }
+      );
+    } catch (error) {
+      console.log(error.message)
+      alert("You dont have sufficient funds in your wallet!!")
+    }
   };
 
   // fetch listed nft
@@ -221,12 +224,10 @@ export default function App({ Component, pageProps }) {
     );
 
     const res = await marketplace_contract.getAllNFTs();
-    console.log({ listedNFTs: res });
     let nfts = [];
     for (const nft of res) {
       const token_id = nft.tokenId.toString();
       const nft_metadata = await getNFTInfo_moralis(token_id);
-      console.log(nft_metadata);
       nfts.push(nft_metadata);
     }
     return nfts;

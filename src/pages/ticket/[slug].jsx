@@ -10,7 +10,7 @@ import axios from "axios";
 import Image from "next/image";
 import { BsBrowserChrome } from "react-icons/bs";
 import { MdDataExploration } from "react-icons/md";
-import { Signer } from "ethers";
+import { Signer, ethers } from "ethers";
 
 const Ticket = ({
   list_token,
@@ -28,7 +28,11 @@ const Ticket = ({
   const [price, set_price] = useState("");
   const [putSale, setPutSale] = useState(false);
   const [loading, set_loading] = useState(false);
+
   const [NFTInfo, setNFTInfo] = useState([]);
+  const [isListed, setIslisted] = useState(false);
+  const [NFTSalePrice, setNFTSalePrice] = useState(0);
+  const [DefaultNFTSalePrice, setDefaultNFTSalePrice] = useState(0);
 
   const sell_token = async () => {
     set_loading(true);
@@ -38,7 +42,7 @@ const Ticket = ({
 
   const buyToken = async () => {
     set_loading(true);
-    await buy_token(tokenId);
+    await buy_token(tokenId, DefaultNFTSalePrice);
     set_loading(false);
   };
 
@@ -68,8 +72,6 @@ const Ticket = ({
 
       my_nfts.push(obj);
       setNFTInfo(my_nfts);
-      console.log(my_nfts);
-      console.log(NFTInfo);
     } catch (error) {
       console.log(error);
     }
@@ -78,6 +80,9 @@ const Ticket = ({
 
   const get_listed_token = async () => {
     const res = await get_listed_token_by_id(slug);
+    setIslisted(res?.currentlyListed);
+    setDefaultNFTSalePrice(res?.price);
+    setNFTSalePrice(res ? ethers?.utils?.formatEther(res?.price?.toString()) : 0);
   };
 
   useEffect(() => {
@@ -221,26 +226,50 @@ const Ticket = ({
                 {putSale == false && (
                   <div>
                     {NFTInfo[0]?.minter_address.toLowerCase() ==
-                    signer_address.toLowerCase() ? (
-                      <div className="col-md-12 mt-8">
-                        <div
-                          className="default-button default-button-2 cursor-pointer"
-                          onClick={() => setPutSale(true)}
-                        >
-                          <span>Put on sale</span>
+                      signer_address.toLowerCase() && isListed == false && (
+                        <div className="col-md-12 mt-8">
+                          <div
+                            className="default-button default-button-2 cursor-pointer"
+                            onClick={() => setPutSale(true)}
+                          >
+                            <span>Put on sale</span>
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      //  integrate buyticket here
-                      <div className="col-md-12 mt-8">
-                        <div
-                          className="default-button default-button-2 cursor-pointer"
-                          onClick={() => buyToken()}
-                        >
-                          <span>Buy Ticket</span>
+                      )}
+                    {NFTInfo[0]?.minter_address.toLowerCase() !=
+                      signer_address.toLowerCase() && isListed == false && (
+                        <div className="col-md-12 mt-8">
+                          <div
+                            className="default-button default-button-2 cursor-pointer"
+                          >
+                            <span>Not Listed</span>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    {NFTInfo[0]?.minter_address.toLowerCase() !=
+                      signer_address.toLowerCase() && isListed == true && (
+                        <div className="col-md-12 mt-8">
+                          <p>Ticket Price -  <span className="text-[black]">{NFTSalePrice} MATIC</span></p>
+                          <div
+                            className="default-button default-button-2 cursor-pointer"
+                            onClick={() => buyToken()}
+                          >
+                            <span>Buy Ticket</span>
+                          </div>
+                        </div>
+                      )}
+                    {NFTInfo[0]?.minter_address.toLowerCase() ==
+                      signer_address.toLowerCase() && isListed == true && (
+                        <div className="col-md-12 mt-8">
+                          <p>Ticket Price -  <span className="text-[black]">{NFTSalePrice} MATIC</span></p>
+                          <div
+                            className="default-button default-button-2 cursor-pointer"
+                            onClick={() => alert("Cannot cancel the sale now!")}
+                          >
+                            <span>Cancel Ticket Sale</span>
+                          </div>
+                        </div>
+                      )}
                   </div>
                 )}
 
