@@ -1,6 +1,6 @@
 # Overview
 
-Reckets is a cutting-edge blockchain-based decentralized application (dApp) built on the Polygon (previously known as Matic) blockchain network. The platform is specifically designed to facilitate the reselling of online tickets, with a primary focus on flight tickets. By utilizing blockchain technology, smart contracts, and integrating the Next.js framework and Moralis API, Reckets offers a secure, transparent, and efficient solution for users to buy and sell their tickets.
+Reckets is a cutting-edge blockchain-based decentralized application (dApp) built on the Polygon Mumbai blockchain network. The platform is specifically designed to facilitate the reselling of online tickets, with a primary focus on flight tickets. By utilizing blockchain technology, smart contracts, and integrating the Next.js framework and Moralis API, Reckets offers a secure, transparent, and efficient solution for users to buy and sell their tickets.
 
 #How Reckets Works:
 1) Ticket Listing-
