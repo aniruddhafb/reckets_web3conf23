@@ -138,6 +138,16 @@ export default function App({ Component, pageProps }) {
   };
 
   const list_token = async (token_id, price) => {
+    const collection_contract = new ethers.Contract(
+      defaultCollectionAddress,
+      collectionABI.abi,
+      signer
+    );
+    const txnApproval = await collection_contract.setApprovalForAll(
+      marketplaceAddress,
+      true
+    );
+    await txnApproval.wait();
     const marketplace_contract = new ethers.Contract(
       marketplaceAddress,
       marketplaceABI.abi,
@@ -146,8 +156,11 @@ export default function App({ Component, pageProps }) {
 
     const txn = await marketplace_contract.ListToken(
       token_id,
-      price,
-      defaultCollectionAddress
+      ethers.utils.parseEther(price),
+      defaultCollectionAddress,
+      {
+        value: ethers.utils.parseEther("0.01"),
+      }
     );
 
     console.log(txn);
@@ -176,6 +189,22 @@ export default function App({ Component, pageProps }) {
     );
 
     const res = await marketplace_contract.getAllNFTs();
+    return res;
+  };
+
+  const get_listed_token_by_id = async (tokenId) => {
+    const marketplace_contract = new ethers.Contract(
+      marketplaceAddress,
+      marketplaceABI.abi,
+      signer
+    );
+
+    const res = await marketplace_contract.getListedTokenById(
+      tokenId,
+      defaultCollectionAddress
+    );
+
+    console.log(res);
   };
 
   useEffect(() => {
@@ -195,6 +224,7 @@ export default function App({ Component, pageProps }) {
       />
       <Component
         {...pageProps}
+        signer={signer}
         get_listed_nfts={get_listed_nfts}
         list_token={list_token}
         buy_token={buy_token}
@@ -202,6 +232,7 @@ export default function App({ Component, pageProps }) {
         signer_address={signer_address}
         initiateMoralis={initiateMoralis}
         defaultCollectionAddress={defaultCollectionAddress}
+        get_listed_token_by_id={get_listed_token_by_id}
       />
       <Footer />
     </>

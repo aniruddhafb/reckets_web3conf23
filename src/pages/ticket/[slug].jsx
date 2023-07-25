@@ -7,8 +7,12 @@ import Moralis from "moralis";
 import { EvmChain } from "@moralisweb3/common-evm-utils";
 import Loader from "@/components/Loader";
 
-const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
-
+const Ticket = ({
+  list_token,
+  initiateMoralis,
+  defaultCollectionAddress,
+  get_listed_token_by_id,
+}) => {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -30,7 +34,7 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
         chain,
         tokenId: slug,
       });
-      console.log({ respons: response.jsonResponse })
+      console.log({ respons: response.jsonResponse });
       setNFTInfo(response.jsonResponse.result);
     } catch (error) {
       console.log(error);
@@ -38,15 +42,21 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
     set_loading(false);
   };
 
+  const listed_token = async () => {
+    await get_listed_token_by_id(slug);
+  };
+
   useEffect(() => {
+    if (!slug) return;
     getNFTInfo_moralis();
-  }, [slug])
+    listed_token();
+  }, [slug]);
 
   return (
     <>
-      {loading ?
+      {loading ? (
         <Loader />
-        :
+      ) : (
         <div className="blog-details pb-100 pt-[200px]">
           <Head>
             <title>Flight Ticket</title>
@@ -54,7 +64,10 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
               name="description"
               content="A platform to resell your online tickets"
             />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
             <link rel="icon" href="/favicon.png" />
           </Head>
 
@@ -157,9 +170,8 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
               </div>
             </div>
           </div>
-
         </div>
-      }
+      )}
     </>
   );
 };
