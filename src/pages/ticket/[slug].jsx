@@ -147,7 +147,7 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                   <div>
                     {NFTInfo[0]?.minter_address.toLowerCase() === signer_address.toLowerCase() ?
                       <div className="col-md-12 mt-8">
-                        <div className="default-button default-button-2" onClick={() => setPutSale(true)} >
+                        <div className="default-button default-button-2 cursor-pointer" onClick={() => setPutSale(true)} >
                           <span>Put on sale</span>
                         </div>
                       </div>
@@ -168,11 +168,11 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
                     <h3>Resell your ticket</h3>
                     <form>
                       <div className="row">
-                        <div className="col-md-6">
+                        <div>
                           <input type="number" className="form-control" placeholder="Enter amount in matic" required />
                         </div>
-                        <div className="col-md-12">
-                          <button className="default-button" type="button"><span>List for sale</span></button>
+                        <div className="default-button default-button-2 cursor-pointer" >
+                          <span>List for sale</span>
                         </div>
                       </div>
                     </form>

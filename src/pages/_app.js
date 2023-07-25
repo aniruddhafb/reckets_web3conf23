@@ -71,6 +71,11 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const signOut = async () => {
+    set_signer_address("");
+    setSigner();
+  };
+
   const chainSwitchReload = async () => {
     try {
       setChainIdMain();
@@ -125,6 +130,10 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_token = async (data) => {
+    if (!signer_address) {
+      alert("Please connect your wallet");
+      return;
+    }
     const collection_contract = new ethers.Contract(
       defaultCollectionAddress,
       collectionABI.abi,
@@ -192,6 +201,7 @@ export default function App({ Component, pageProps }) {
       <Navbar
         connectToWallet={connectToWallet}
         signer_address={signer_address}
+        signOut={signOut}
       />
       <Component
         {...pageProps}
