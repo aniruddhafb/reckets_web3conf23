@@ -15,7 +15,11 @@ Once the buyer receives the ticket, they have a specified period to verify its a
 #Roadmap
 We wanted to add more functionalities to the existing app and make reckets more secure but because of the hackathon timeline we have added the following to our roadmap:
 > Implement Boat ticket Reselling
+
 > Improve UI and UX
+
 > Platform commission implementation
+
 > Cancel ticket listing feature
+
 > Many more small things...
