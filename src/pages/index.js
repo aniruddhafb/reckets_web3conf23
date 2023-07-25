@@ -68,7 +68,7 @@ export default function Home({ get_listed_nfts, signer, signer_address }) {
           {/* brands  */}
           <div className="partner pt-70">
             <div className="container">
-              <div className="partner-slider-area owl-carousel flex flex-wrap">
+              <div className="partner-slider-area owl-carousel flex flex-wrap justify-center">
                 <img src="../kasa.png" className='h-[55px] mr-14 mt-2' alt="image" />
                 <img src="../indgio.png" className='h-[70px] mr-14' alt="image" />
                 <img src="../airasia.png" className='h-[45px] mr-14 mt-2' alt="image" />
@@ -89,62 +89,67 @@ export default function Home({ get_listed_nfts, signer, signer_address }) {
               <div className="section-content">
                 <div className="row justify-content-center">
                   {/* loop tickets here  */}
-                  {ticketData?.map((e) => (
-                    <div className="col-lg-4 col-md-6 col-sm-12 col-12">
-                      <div className="blog-card blog-card-2 overflow-hidden">
-                        <div className="blog-img">
-                          <Link href={`/ticket/${e?.token_id}`}>
-                            <Image
-                              height={100}
-                              width={100}
-                              src={e?.upload_ticket?.replace(
-                                "ipfs://",
-                                "https://ipfs.io/ipfs/"
-                              )}
-                              className="h-[200px] w-[100%]"
-                            />
-                          </Link>
-                        </div>
-                        <div className="blog-text-area">
-                          <div className="blog-date">
-                            <ul>
-                              <li>
-                                {e?.airline_name} {"  "}
-                              </li>
-                              <li> {" "} {e?.cabin_type} {" "}  </li>
-                              <li>
-                                <i className="far fa-calendar-alt"></i> {e?.date}
-                              </li>
-                            </ul>
+                  {ticketData?.map((e, index) => {
+                    return (
+                      index < 6 && (
+                        <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+                          <div className="blog-card blog-card-2 overflow-hidden">
+                            <div className="blog-img">
+                              <Link href={`/ticket/${e?.token_id}`}>
+                                <Image
+                                  height={100}
+                                  width={100}
+                                  src={e?.upload_ticket?.replace(
+                                    "ipfs://",
+                                    "https://ipfs.io/ipfs/"
+                                  )}
+                                  className="h-[200px] w-[100%]"
+                                />
+                              </Link>
+                            </div>
+                            <div className="blog-text-area">
+                              <div className="blog-date">
+                                <ul>
+                                  <li>
+                                    {e?.airline_name} {"  "}
+                                  </li>
+                                  <li> {" "} {e?.cabin_type} {" "}  </li>
+                                  <li>
+                                    <i className="far fa-calendar-alt"></i> {e?.date}
+                                  </li>
+                                </ul>
+                              </div>
+                              <h4>
+                                <Link href={`/ticket/${e?.token_id}`}>{e?.location} to {e?.destination}</Link>
+                              </h4>
+                              <p>Flight mode is {e?.flight_mode} and flight type is {e?.flight_type}, this ticket is of {e?.airline_name} airlines.</p>
+                            </div>
+                            <div className="m-4 flex justify-end">
+                              <button className="mr-24" type="submit">
+                                <span>{e?.travellers} Travellers</span>
+                              </button>
+                              {e?.minter_address?.toLowerCase() == signer_address?.toLowerCase() ?
+                                <Link
+                                  className="default-button default-button-2"
+                                  href={`/ticket/${e?.token_id}`}
+                                >
+                                  <span>Sell Ticket</span>
+                                </Link>
+                                :
+                                <Link
+                                  className="default-button default-button-2"
+                                  href={`/ticket/${e?.token_id}`}
+                                >
+                                  <span>View Ticket</span>
+                                </Link>
+                              }
+                            </div>
                           </div>
-                          <h4>
-                            <Link href={`/ticket/${e?.token_id}`}>{e?.location} to {e?.destination}</Link>
-                          </h4>
-                          <p>Flight mode is {e?.flight_mode} and flight type is {e?.flight_type}, this ticket is of {e?.airline_name} airlines.</p>
                         </div>
-                        <div className="m-4 flex justify-end">
-                          <button className="mr-24" type="submit">
-                            <span>{e?.travellers} Travellers</span>
-                          </button>
-                          {e?.minter_address?.toLowerCase() == signer_address?.toLowerCase() ?
-                            <Link
-                              className="default-button default-button-2"
-                              href={`/ticket/${e?.token_id}`}
-                            >
-                              <span>Sell Ticket</span>
-                            </Link>
-                            :
-                            <Link
-                              className="default-button default-button-2"
-                              href={`/ticket/${e?.token_id}`}
-                            >
-                              <span>View Ticket</span>
-                            </Link>
-                          }
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                      )
+                    )
+                  }
+                  )}
                   {ticketData.length <= 0 && !signer_address &&
                     <h6 className='text-center mt-4'>please connect your wallet to view data!!</h6>
                   }

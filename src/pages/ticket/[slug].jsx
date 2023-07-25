@@ -20,6 +20,7 @@ const Ticket = ({
   buy_token,
   get_listed_token_by_id,
   signer,
+  get_listed_nfts
 }) => {
   const router = useRouter();
   const { slug } = router.query;
@@ -30,9 +31,12 @@ const Ticket = ({
   const [loading, set_loading] = useState(false);
 
   const [NFTInfo, setNFTInfo] = useState([]);
+  const [ticketData, set_ticketData] = useState([]);
+
   const [isListed, setIslisted] = useState(false);
   const [NFTSalePrice, setNFTSalePrice] = useState(0);
   const [DefaultNFTSalePrice, setDefaultNFTSalePrice] = useState(0);
+
 
   const sell_token = async () => {
     set_loading(true);
@@ -80,6 +84,13 @@ const Ticket = ({
     set_loading(false);
   };
 
+  const get_nfts = async () => {
+    set_loading(true);
+    const nfts = await get_listed_nfts([]);
+    set_ticketData(nfts);
+    set_loading(false);
+  };
+
   const get_listed_token = async () => {
     const res = await get_listed_token_by_id(slug);
     setIslisted(res?.currentlyListed);
@@ -92,6 +103,11 @@ const Ticket = ({
     getNFTInfo_moralis();
     get_listed_token();
   }, [slug, signer]);
+
+  useEffect(() => {
+    if (!signer) return;
+    get_nfts();
+  }, [signer]);
 
   return (
     <>
@@ -310,19 +326,34 @@ const Ticket = ({
                     <h3>Other Tickets</h3>
 
                     {/* loop listed tickets here  */}
-                    <div className="recent-news-card">
-                      <img src="../tick.jpg" alt="image" />
-                      <h5>
-                        <a href="blog-details.html">Delhi to Bengaluru</a>
-                      </h5>
-                      <p>5th Jun 2023</p>
-                    </div>
+                    {ticketData?.map((e, index) => {
+                      return (
+                        index < 6 && (
+                          < div className="recent-news-card" >
+                            <Image
+                              height={100}
+                              width={100}
+                              src={e?.upload_ticket?.replace(
+                                "ipfs://",
+                                "https://ipfs.io/ipfs/"
+                              )}
+                              className="h-[60px] w-[60px]"
+                            />
+                            <h5>
+                              <a href="blog-details.html">{e?.location} to {e?.destination}</a>
+                            </h5>
+                            <p>{e?.airline_name} | {e?.date}</p>
+                          </div>
+                        )
+                      )
+                    }
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div >
       )}
     </>
   );
