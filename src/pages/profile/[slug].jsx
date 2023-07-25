@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import defaultAvatar from "../../../public/profile.png";
+import banner from "../../../public/uniBanner.jpg";
 import Head from "next/head";
 import Moralis from "moralis";
 import { EvmChain } from "@moralisweb3/common-evm-utils";
@@ -76,6 +77,16 @@ const UserProfile = ({
                         <meta name="viewport" content="width=device-width, initial-scale=1" />
                         <link rel="icon" href="/favicon.png" />
                     </Head>
+
+                    {/* <div className="relative mt-24">
+                        <Image
+                            src={banner}
+                            alt="banner"
+                            height={100}
+                            width={100}
+                            className="h-[18.75rem] w-[100%] object-cover"
+                        />
+                    </div> */}
 
                     <div className="uni-banner pt-[200px]">
                         <div className="container">

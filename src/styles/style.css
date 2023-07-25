@@ -3341,7 +3341,7 @@ Uni Banner Area CSS
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url("../../public/uni-banner-bg.jpg");
+  background-image: url("/uniBanner.jpg");
   position: relative;
   margin-top: -185px;
 }
