@@ -4,7 +4,7 @@ import defaultAvatar from "../../public/profile.png"
 import Image from 'next/image';
 import { Router, useRouter } from 'next/router';
 
-const Navbar = ({ connectToWallet, signer_address }) => {
+const Navbar = ({ connectToWallet, signer_address, signOut }) => {
     const router = useRouter();
 
     const [showProfile, SetShowProfile] = useState(false);
@@ -42,6 +42,7 @@ const Navbar = ({ connectToWallet, signer_address }) => {
                                         }}
                                     />
                                 </div>
+                                <p className='text-[black] ml-1'>{signer_address.slice(0, 5) + "..." + signer_address.slice(38)}</p>
                             </button>
 
                             {showProfile && (
@@ -85,6 +86,17 @@ const Navbar = ({ connectToWallet, signer_address }) => {
                                         </svg>
 
                                         <span className="mx-1">Resell Ticket</span>
+                                    </Link>
+                                    <Link
+                                        href={"#"}
+                                        onClick={signOut}
+                                        className="flex items-center p-3 text-sm text-black capitalize transition-colors duration-300 transform  hover:bg-gray-200"
+                                    >
+                                        <svg class="w-5 h-5 mx-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19 21H10C8.89543 21 8 20.1046 8 19V15H10V19H19V5H10V9H8V5C8 3.89543 8.89543 3 10 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21ZM12 16V13H3V11H12V8L17 12L12 16Z" fill="currentColor"></path>
+                                        </svg>
+
+                                        <span className="mx-1">signOut</span>
                                     </Link>
                                 </div>
                             )}

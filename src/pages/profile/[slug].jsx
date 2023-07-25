@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import defaultAvatar from "../../../public/profile.png";
+import banner from "../../../public/uniBanner.jpg";
 import Head from "next/head";
 import Moralis from "moralis";
 import { EvmChain } from "@moralisweb3/common-evm-utils";
@@ -85,6 +86,7 @@ const UserProfile = ({
             <link rel="icon" href="/favicon.png" />
           </Head>
 
+<<<<<<< HEAD
           <div className="uni-banner pt-[200px]">
             <div className="container">
               <div className="uni-banner-text-area flex justify-center flex-col align-middle">
@@ -112,6 +114,43 @@ const UserProfile = ({
               </div>
             </div>
           </div>
+=======
+                    {/* <div className="relative mt-24">
+                        <Image
+                            src={banner}
+                            alt="banner"
+                            height={100}
+                            width={100}
+                            className="h-[18.75rem] w-[100%] object-cover"
+                        />
+                    </div> */}
+
+                    <div className="uni-banner pt-[200px]">
+                        <div className="container">
+                            <div className="uni-banner-text-area flex justify-center flex-col align-middle">
+                                <ul className="flex justify-center">
+                                    <Image
+                                        src={defaultAvatar}
+                                        height={100}
+                                        width={100}
+                                        alt="avatar"
+                                        style={{
+                                            borderRadius: "50%",
+                                            width: "80px",
+                                            height: "70px",
+                                            marginBottom: "10px",
+                                        }}
+                                    />
+                                </ul>
+                                <ul>
+                                    <li>
+                                        {signer_address.slice(0, 5) + "..." + signer_address.slice(38)}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+>>>>>>> c96b2f14a9bbad8967d3638ce4871fdd29cf92fc
 
           <div className="login ptb-100">
             <div className="container">
@@ -148,6 +187,7 @@ const UserProfile = ({
                                 </li>
                               </ul>
                             </div>
+<<<<<<< HEAD
                             <h4>
                               <Link href={`/ticket/${e.token_id}`}>
                                 {e.location} to {e.destination}
@@ -178,6 +218,76 @@ const UserProfile = ({
                               >
                                 Sell Ticket
                               </button>
+=======
+                            <div className="section-content">
+                                <div className="row justify-content-center">
+                                    {/* loop tickets here  */}
+                                    {nfts?.map((e, index) => {
+                                        console.log(e)
+                                        return (
+                                            <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+                                                <div className="blog-card blog-card-2 overflow-hidden">
+                                                    <div className="blog-img">
+                                                        <Link href={`/ticket/${e.token_id}`}>
+                                                            <Image
+                                                                height={100}
+                                                                width={100}
+                                                                src={e?.upload_ticket.replace(
+                                                                    "ipfs://",
+                                                                    "https://ipfs.io/ipfs/"
+                                                                )}
+                                                                className="h-[200px] w-[100%]"
+                                                            />
+                                                        </Link>
+                                                    </div>
+                                                    <div className="blog-text-area">
+                                                        <div className="blog-date">
+                                                            <ul>
+                                                                <li>
+                                                                    {e.airline_name} {"  "}
+                                                                </li>
+                                                                <li> {" "} {e.cabin_type} {" "}  </li>
+                                                                <li>
+                                                                    <i className="far fa-calendar-alt"></i> {e.date}
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <h4>
+                                                            <Link href={`/ticket/${e.token_id}`}>{e.location} to {e.destination}</Link>
+                                                        </h4>
+                                                        <p>Flight mode is {e.flight_mode} and flight type is {e.flight_type}, this ticket is of {e.airline_name} airlines.</p>
+                                                    </div>
+                                                    <div className="m-4 flex justify-end">
+                                                        <button className="mr-24" type="submit">
+                                                            <span>{e.travellers} Travellers</span>
+                                                        </button>
+                                                        {e?.minter_address.toLowerCase() === slug.toLowerCase() ?
+                                                            <Link
+                                                                className="default-button default-button-2"
+                                                                href={`/ticket/${e.token_id}`}
+                                                            >
+                                                                <span>View Ticket</span>
+                                                            </Link>
+                                                            :
+                                                            <Link
+                                                                className="default-button default-button-2"
+                                                                href={`/ticket/${e.token_id}`}
+                                                            >
+                                                                <span>Buy Ticket</span>
+                                                            </Link>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            {!nfts.length && (
+                                <div className="default-section-title default-section-title-middle">
+                                    <h3>No Tickets in your wallet</h3>
+                                </div>
+>>>>>>> c96b2f14a9bbad8967d3638ce4871fdd29cf92fc
                             )}
                           </div>
                         </div>

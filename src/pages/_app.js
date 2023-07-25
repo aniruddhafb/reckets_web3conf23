@@ -35,11 +35,13 @@ export default function App({ Component, pageProps }) {
   const [signer_address, set_signer_address] = useState("");
   const [signer_bal, set_signer_bal] = useState(0);
   const [format_signer_bal, set_format_signer_bal] = useState(0);
-  const [nfts, set_nfts] = useState([]);
+
+  const [listedTickets, setListedTickets] = useState([]);
 
   const defaultCollectionAddress = "0x877D6Fa1b6EDfd3f0666171613b8bd5f406B5eFC";
   const marketplaceAddress = "0x31Cfe2bB9a967668BCa5F0EFC071Ae5C5A0c1abA";
 
+  // connecting 
   const connectToWallet = async () => {
     if (window?.ethereum) {
       const provider = new ethers.providers.Web3Provider(
@@ -71,6 +73,12 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  // signout 
+  const signOut = async () => {
+    set_signer_address("");
+    setSigner();
+  };
+
   const chainSwitchReload = async () => {
     try {
       setChainIdMain();
@@ -90,6 +98,7 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  // switch chain 
   const switchPolygonChain = async () => {
     try {
       await window.ethereum.request({
@@ -124,7 +133,12 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  // mint ticket 
   const create_token = async (data) => {
+    if (!signer_address) {
+      alert("Please connect your wallet");
+      return;
+    }
     const collection_contract = new ethers.Contract(
       defaultCollectionAddress,
       collectionABI.abi,
@@ -134,39 +148,50 @@ export default function App({ Component, pageProps }) {
     const tokenURI = await storage.upload(data);
 
     const txn = await collection_contract.createToken(tokenURI);
+    await txn.wait();
     console.log(txn);
   };
 
+  // list ticket 
   const list_token = async (token_id, price) => {
-    const collection_contract = new ethers.Contract(
-      defaultCollectionAddress,
-      collectionABI.abi,
-      signer
-    );
-    const txnApproval = await collection_contract.setApprovalForAll(
-      marketplaceAddress,
-      true
-    );
-    await txnApproval.wait();
-    const marketplace_contract = new ethers.Contract(
-      marketplaceAddress,
-      marketplaceABI.abi,
-      signer
-    );
+    try {
+      const marketplace_contract = new ethers.Contract(
+        marketplaceAddress,
+        marketplaceABI.abi,
+        signer
+      );
 
-    const txn = await marketplace_contract.ListToken(
-      token_id,
-      ethers.utils.parseEther(price),
-      defaultCollectionAddress,
-      {
-        value: ethers.utils.parseEther("0.01"),
-      }
-    );
+      const collection_contract = new ethers.Contract(
+        defaultCollectionAddress,
+        collectionABI.abi,
+        signer
+      );
 
-    console.log(txn);
+      // approving contract 
+      const txnApproval = await collection_contract.setApprovalForAll(
+        marketplaceAddress,
+        true
+      );
+      await txnApproval.wait();
+
+      // approving txn 
+      const txn = await marketplace_contract.ListToken(
+        token_id,
+        ethers.utils.parseEther(price),
+        defaultCollectionAddress,
+        {
+          value: ethers.utils.parseEther("0.01"),
+        }
+      );
+      await txn.wait();
+      console.log(txn);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
-  const buy_token = async (token_id) => {
+  // buy ticket 
+  const buy_token = async (token_id, listingPrice) => {
     const marketplace_contract = new ethers.Contract(
       marketplaceAddress,
       marketplaceABI.abi,
@@ -175,12 +200,16 @@ export default function App({ Component, pageProps }) {
 
     const txn = await marketplace_contract.executeSale(
       token_id,
-      defaultCollectionAddress
+      defaultCollectionAddress,
+      {
+        value: ethers.utils.parseEther(listingPrice),
+      }
     );
 
     console.log(txn);
   };
 
+  // fetch listed nft 
   const get_listed_nfts = async () => {
     const marketplace_contract = new ethers.Contract(
       marketplaceAddress,
@@ -189,22 +218,8 @@ export default function App({ Component, pageProps }) {
     );
 
     const res = await marketplace_contract.getAllNFTs();
-    return res;
-  };
-
-  const get_listed_token_by_id = async (tokenId) => {
-    const marketplace_contract = new ethers.Contract(
-      marketplaceAddress,
-      marketplaceABI.abi,
-      signer
-    );
-
-    const res = await marketplace_contract.getListedTokenById(
-      tokenId,
-      defaultCollectionAddress
-    );
-
-    console.log(res);
+    console.log({ listedNFTs: res })
+    setListedTickets(res);
   };
 
   useEffect(() => {
@@ -216,11 +231,17 @@ export default function App({ Component, pageProps }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (!signer_address) return;
+    get_listed_nfts();
+  }, [signer_address])
+
   return (
     <>
       <Navbar
         connectToWallet={connectToWallet}
         signer_address={signer_address}
+        signOut={signOut}
       />
       <Component
         {...pageProps}
@@ -232,7 +253,7 @@ export default function App({ Component, pageProps }) {
         signer_address={signer_address}
         initiateMoralis={initiateMoralis}
         defaultCollectionAddress={defaultCollectionAddress}
-        get_listed_token_by_id={get_listed_token_by_id}
+        listedTickets={listedTickets}
       />
       <Footer />
     </>
