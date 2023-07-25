@@ -41,8 +41,9 @@ const Ticket = ({
   };
 
   const buyToken = async () => {
+    console.log(tokenId.toString(), ethers?.utils?.formatEther(DefaultNFTSalePrice.toString()))
     set_loading(true);
-    await buy_token(tokenId, DefaultNFTSalePrice);
+    await buy_token(tokenId.toString(), ethers?.utils?.formatEther(DefaultNFTSalePrice.toString()));
     set_loading(false);
   };
 
@@ -72,6 +73,7 @@ const Ticket = ({
 
       my_nfts.push(obj);
       setNFTInfo(my_nfts);
+      console.log({ my_nfts: my_nfts })
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +84,7 @@ const Ticket = ({
     const res = await get_listed_token_by_id(slug);
     setIslisted(res?.currentlyListed);
     setDefaultNFTSalePrice(res?.price);
-    setNFTSalePrice(res ? ethers?.utils?.formatEther(res?.price?.toString()) : 0);
+    setNFTSalePrice(res ? ethers.utils.formatEther(res?.price?.toString()) : 0);
   };
 
   useEffect(() => {

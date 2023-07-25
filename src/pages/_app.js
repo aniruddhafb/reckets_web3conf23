@@ -205,9 +205,11 @@ export default function App({ Component, pageProps }) {
         token_id,
         defaultCollectionAddress,
         {
-          value: ethers.utils.parseEther(listingPrice.toString()),
+          value: ethers.utils.parseEther(listingPrice),
         }
       );
+      await txn.wait();
+      router.reload();
     } catch (error) {
       console.log(error.message)
       alert("You dont have sufficient funds in your wallet!!")
