@@ -88,10 +88,17 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+
+
   const initiateMoralis = async () => {
+    const ApiKey = [process.env.NEXT_PUBLIC_MORALIS_API_1, process.env.NEXT_PUBLIC_MORALIS_API_2, process.env.NEXT_PUBLIC_MORALIS_API_3, process.env.NEXT_PUBLIC_MORALIS_API_4, process.env.NEXT_PUBLIC_MORALIS_API_5, process.env.NEXT_PUBLIC_MORALIS_API_6, process.env.NEXT_PUBLIC_MORALIS_API_7];
+
+    const RandomKeyNumber = Math.floor(Math.random() * ApiKey.length);
+    const RandomKey = ApiKey[RandomKeyNumber];
+
     try {
       await Moralis.start({
-        apiKey: process.env.NEXT_PUBLIC_MORALIS_API,
+        apiKey: RandomKey ? RandomKey : process.env.NEXT_PUBLIC_MORALIS_API_2,
       });
     } catch (error) {
       console.log(error);
