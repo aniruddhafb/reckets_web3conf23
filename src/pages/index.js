@@ -145,6 +145,12 @@ export default function Home({ get_listed_nfts, signer, signer_address }) {
                       </div>
                     </div>
                   ))}
+                  {ticketData.length <= 0 && !signer_address &&
+                    <h6 className='text-center mt-4'>please connect your wallet to view data!!</h6>
+                  }
+                  {ticketData.length <= 0 && signer_address &&
+                    <h6 className='text-center mt-4'>It seems everthing is sold out!!</h6>
+                  }
                 </div>
               </div>
             </div>
