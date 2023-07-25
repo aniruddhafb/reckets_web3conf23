@@ -6,15 +6,19 @@ import { useRouter } from "next/router";
 import Moralis from "moralis";
 import { EvmChain } from "@moralisweb3/common-evm-utils";
 import Loader from "@/components/Loader";
+import axios from "axios";
+import Image from "next/image";
 
-const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
+
+const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_address }) => {
 
   const router = useRouter();
   const { slug } = router.query;
 
   const [price, set_price] = useState("");
+  const [putSale, setPutSale] = useState(false);
   const [loading, set_loading] = useState(false);
-  const [NFTInfo, setNFTInfo] = useState("");
+  const [NFTInfo, setNFTInfo] = useState([]);
 
   const sell_token = async () => {
     await list_token(tokenId, price);
@@ -30,8 +34,24 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
         chain,
         tokenId: slug,
       });
-      console.log({ respons: response.jsonResponse })
-      setNFTInfo(response.jsonResponse.result);
+
+      let my_nfts = [];
+      let obj = {};
+      const a = response.jsonResponse;
+
+      const res = await axios.get(a.token_uri);
+      obj = {
+        ...res.data,
+        token_address: a.token_address,
+        token_id: a.token_id,
+        minter_address: a.minter_address,
+      };
+
+      my_nfts.push(obj);
+      setNFTInfo(my_nfts);
+      console.log(my_nfts)
+      console.log(NFTInfo)
+
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +69,7 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
         :
         <div className="blog-details pb-100 pt-[200px]">
           <Head>
-            <title>Flight Ticket</title>
+            <title>{NFTInfo[0]?.location} to {NFTInfo[0]?.destination} - Flight Ticket</title>
             <meta
               name="description"
               content="A platform to resell your online tickets"
@@ -62,16 +82,39 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
             <div className="row">
               <div className="col-lg-8 col-md-12 col-sm-12 col-12">
                 <div className="blog-details-text-area details-text-area pr-20">
-                  <img src="assets/images/inner-pages/cd1.jpg" alt="image" />
-                  <h3>Flight from mumbai to goa</h3>
-                  <p>Other flight info goes here</p>
+
+                  <Image
+                    height={100}
+                    width={100}
+                    src={NFTInfo[0]?.upload_ticket.replace(
+                      "ipfs://",
+                      "https://ipfs.io/ipfs/"
+                    )}
+                    style={{ height: "auto", width: "100%" }}
+                  />
+
+                  <p>(Cabin type is {NFTInfo[0]?.cabin_type})</p>
+                  <h3>Flight ticket from {NFTInfo[0]?.location} to {NFTInfo[0]?.destination}</h3>
+                  <p>This flight ticket owner should board the flight from  {NFTInfo[0]?.location} airport on {NFTInfo[0]?.date}</p>
+
+                  <p>Also this flight ticket is a {NFTInfo[0]?.flight_mode} ticket with {NFTInfo[0]?.flight_type}  {NFTInfo[0]?.flight_type != "Direct" ? "on the way i.e you have to board another flights (connect in airports)" : "flight i.e the flight will directly react the destination with no stops"}</p>
+
+                  {NFTInfo[0]?.cabin_type != "Economy" ?
+                    <p>This is a {NFTInfo[0]?.cabin_type} ticket so you have all the meals and services included, view the ticket for more info..</p>
+                    :
+                    <p>This is a {NFTInfo[0]?.cabin_type} class ticket so you don't have any meals included</p>
+                  }
+
+                  {NFTInfo[0]?.email != "" &&
+                    <p><a href={`mailto:${NFTInfo[0]?.email}`}>Click here</a> to have a conversation with the owner of this ticket for more information</p>
+                  }
                   <div className="blog-quote">
                     <h5>
                       <i className="fas fa-quote-left"></i>
                       <span>Cancellation Reason</span>{" "}
                       <i className="fas fa-quote-right"></i>
                     </h5>
-                    <p>Got urgent work</p>
+                    <p> {NFTInfo[0]?.cancellation_reason}</p>
                   </div>
                 </div>
                 <div className="blog-text-footer pr-20">
@@ -80,9 +123,9 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
                       <li>
                         <i className="fas fa-tags"></i>
                       </li>
-                      <li>Indigo,</li>
-                      <li>Oneway,</li>
-                      <li>Direct</li>
+                      <li> {NFTInfo[0]?.airline_name},</li>
+                      <li> {NFTInfo[0]?.flight_mode},</li>
+                      <li> {NFTInfo[0]?.flight_type}</li>
                     </ul>
                   </div>
                   <div className="social-icons">
@@ -99,52 +142,49 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress }) => {
                   </div>
                 </div>
 
-                {/* buy show if listed  */}
-                <div className="col-md-12 mt-8">
-                  {/* <button className="default-button" type="submit"><span>Buy Ticket</span></button> */}
-                  <Link className="default-button default-button-2" href="#">
-                    <span>Buy Ticket</span>
-                  </Link>
-                </div>
+                {putSale == false &&
+                  <div>
+                    {NFTInfo[0]?.minter_address.toLowerCase() === signer_address.toLowerCase() ?
+                      <div className="col-md-12 mt-8">
+                        <div className="default-button default-button-2" onClick={() => setPutSale(true)} >
+                          <span>Put on sale</span>
+                        </div>
+                      </div>
+                      :
+                      //  integrate buyticket here
+                      <div className="col-md-12 mt-8">
+                        <div className="default-button default-button-2" href="#">
+                          <span>Buy Ticket</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
 
-                {/* only owner can see this */}
-                <div className="col-md-12 mt-8">
-                  {/* <button className="default-button" type="submit"><span>Put on sale</span></button> */}
-                  <Link className="default-button default-button-2" href="#">
-                    <span>Put on sale</span>
-                  </Link>
-                </div>
+                {/* {list ticket integration here } */}
+                {putSale &&
+                  <div className="bd-form details-text-area bg-f9faff pr-20" id="bd-form">
+                    <h3>Resell your ticket</h3>
+                    <form>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <input type="number" className="form-control" placeholder="Enter amount in matic" required />
+                        </div>
+                        <div className="col-md-12">
+                          <button className="default-button" type="button"><span>List for sale</span></button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                }
 
-                {/* <div className="bd-form details-text-area bg-f9faff pr-20" id="bd-form">
-                            <h3>Leave A Reply</h3>
-                            <form>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <input type="text" className="form-control" placeholder="Name" required />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <input type="email" className="form-control" placeholder="Email" required />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <input type="text" className="form-control" placeholder="Phone" required />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <input type="text" className="form-control" placeholder="Website" required />
-                                    </div>
-                                    <div className="col-md-12">
-                                        <textarea rows="5" className="form-control" placeholder="Message" required></textarea>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <button className="default-button" type="submit"><span>Post A Comment</span></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> */}
               </div>
               <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                 <div className="sidebar-area pt-30">
                   <div className="sidebar-card recent-news">
                     <h3>Other Tickets</h3>
+
+                    {/* loop listed tickets here  */}
                     <div className="recent-news-card">
                       <img src="../tick.jpg" alt="image" />
                       <h5>
