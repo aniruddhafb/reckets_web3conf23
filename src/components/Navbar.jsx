@@ -4,7 +4,7 @@ import defaultAvatar from "../../public/profile.png"
 import Image from 'next/image';
 import { Router, useRouter } from 'next/router';
 
-const Navbar = ({ connectToWallet, signer_address, signOut }) => {
+const Navbar = ({ connectToWallet, signer_address, signOut, format_signer_bal }) => {
     const router = useRouter();
 
     const [showProfile, SetShowProfile] = useState(false);
@@ -42,7 +42,10 @@ const Navbar = ({ connectToWallet, signer_address, signOut }) => {
                                         }}
                                     />
                                 </div>
-                                <p className='text-[black] ml-1'>{signer_address.slice(0, 5) + "..." + signer_address.slice(38)}</p>
+                                <div className='relative'>
+                                    <p className='text-[black] ml-1'>{signer_address.slice(0, 5) + "..." + signer_address.slice(38)}</p>
+                                    <p className='text-[black] ml-1 absolute top-[21px] text-[12px]'>{format_signer_bal} MATIC</p>
+                                </div>
                             </button>
 
                             {showProfile && (

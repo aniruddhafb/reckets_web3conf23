@@ -38,10 +38,8 @@ export default function App({ Component, pageProps }) {
   const [signer_bal, set_signer_bal] = useState(0);
   const [format_signer_bal, set_format_signer_bal] = useState(0);
 
-  const [listedTickets, setListedTickets] = useState([]);
-
-  const defaultCollectionAddress = "0x877D6Fa1b6EDfd3f0666171613b8bd5f406B5eFC";
-  const marketplaceAddress = "0x31Cfe2bB9a967668BCa5F0EFC071Ae5C5A0c1abA";
+  const defaultCollectionAddress = "0xC9ed7e61D30659b2666fc498EeFbb86180D6625B";
+  const marketplaceAddress = "0x554Bc32f673fAFb3a6F9b16D91eA9d9c0f58d994";
 
   // connecting
   const connectToWallet = async () => {
@@ -295,6 +293,7 @@ export default function App({ Component, pageProps }) {
         connectToWallet={connectToWallet}
         signer_address={signer_address}
         signOut={signOut}
+        format_signer_bal={format_signer_bal}
       />
       <Component
         {...pageProps}
@@ -306,7 +305,6 @@ export default function App({ Component, pageProps }) {
         signer_address={signer_address}
         initiateMoralis={initiateMoralis}
         defaultCollectionAddress={defaultCollectionAddress}
-        listedTickets={listedTickets}
         get_listed_token_by_id={get_listed_token_by_id}
       />
       <Footer />
