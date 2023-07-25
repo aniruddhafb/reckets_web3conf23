@@ -12,7 +12,7 @@ import { BsBrowserChrome } from "react-icons/bs"
 import { MdDataExploration } from "react-icons/md";
 
 
-const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_address, buy_token }) => {
+const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_address, buy_token, get_listed_token_by_id }) => {
 
   const router = useRouter();
   const { slug } = router.query;
@@ -77,7 +77,7 @@ const Ticket = ({ list_token, initiateMoralis, defaultCollectionAddress, signer_
   useEffect(() => {
     if (!slug) return;
     getNFTInfo_moralis();
-    listed_token();
+    // listed_token();
   }, [slug]);
 
   return (
