@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import { ethers, Wallet } from "ethers";
 import collectionABI from "../../artifacts/contracts/NFTCollection.sol/NFTCollection.json";
 import marketplaceABI from "../../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json";
-import Moralis from "moralis";
 
+import Moralis from "moralis";
+import { EvmChain } from "@moralisweb3/common-evm-utils";
+import axios from "axios";
 // importing external techs
 import { ThirdwebStorage } from "@thirdweb-dev/storage";
 
@@ -211,6 +213,7 @@ export default function App({ Component, pageProps }) {
 
   // fetch listed nft
   const get_listed_nfts = async () => {
+    if (!signer) return;
     const marketplace_contract = new ethers.Contract(
       marketplaceAddress,
       marketplaceABI.abi,
@@ -219,7 +222,39 @@ export default function App({ Component, pageProps }) {
 
     const res = await marketplace_contract.getAllNFTs();
     console.log({ listedNFTs: res });
-    setListedTickets(res);
+    let nfts = [];
+    for (const nft of res) {
+      const token_id = nft.tokenId.toString();
+      const nft_metadata = await getNFTInfo_moralis(token_id);
+      console.log(nft_metadata);
+      nfts.push(nft_metadata);
+    }
+    return nfts;
+  };
+
+  const getNFTInfo_moralis = async (tokenId) => {
+    try {
+      initiateMoralis();
+      const chain = EvmChain.MUMBAI;
+      const response = await Moralis.EvmApi.nft.getNFTMetadata({
+        address: defaultCollectionAddress,
+        chain,
+        tokenId: tokenId,
+      });
+
+      const res = await axios.get(response.jsonResponse.token_uri);
+
+      let obj = {
+        ...res.data,
+        token_address: response.jsonResponse.token_address,
+        token_id: response.jsonResponse.token_id,
+        minter_address: response.jsonResponse.minter_address,
+        token_uri: response.jsonResponse.token_uri,
+      };
+      return obj;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const get_listed_token_by_id = async (token_id) => {
