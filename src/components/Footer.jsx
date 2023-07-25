@@ -13,7 +13,7 @@ const Footer = () => {
                             <div className="footer-social-icons">
                                 <ul>
                                     <li><a href="https://github.com/aniruddhafb/reckets" target="_blank"><i className="fab fa-github"></i></a></li>
-                                    <li><a href="https://github.com/aniruddhafb/reckets" target="_blank"><i className="fab fa-youtube"></i></a></li>
+                                    <li><a href="https://www.youtube.com/watch?v=enEPtCOAXw0&ab_channel=AniruddhaVikharankar" target="_blank"><i className="fab fa-youtube"></i></a></li>
                                 </ul>
                             </div>
                         </div>
