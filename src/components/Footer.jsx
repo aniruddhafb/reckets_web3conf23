@@ -42,7 +42,7 @@ const Footer = () => {
             </div>
 
             <div className="container mt-8 mb-[-40px]">
-                <p>Built during <a href="https://hack-web3conf-23.devfolio.co/" className='text-blue-500' target='_blank'>Web3Config Hackathon 2023</a> </p>
+                <p>Built during <a href="https://hack-web3conf-23.devfolio.co/" className='text-blue-500' target='_blank'>Web3Conf Hackathon 2023</a> </p>
             </div>
         </div>
     )
